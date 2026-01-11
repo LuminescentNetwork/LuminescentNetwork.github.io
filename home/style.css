@@ -406,3 +406,25 @@ audio {
     display: block;
     margin-top: 15px;
 }
+/* Mobile (default) */
+body {
+  font-size: 16px;
+}
+
+.nav {
+  flex-direction: column;
+}
+
+/* Tablets */
+@media (min-width: 768px) {
+  .nav {
+    flex-direction: row;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  body {
+    font-size: 18px;
+  }
+}

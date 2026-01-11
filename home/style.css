@@ -419,10 +419,16 @@ body {
     padding: 10px 0;
 }
 
+.nav {
+    font-size: 1.1rem;
+}
+
 /* Tablets */
 @media (min-width: 768px) {
   .nav {
     flex-direction: row;
+      justify-content: Center;
+      flex-wrap: warp;
   }
 }
 
@@ -432,5 +438,6 @@ body {
     font-size: 18px;
   }
 }
+
 
 

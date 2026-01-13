@@ -157,15 +157,17 @@ header img {
 }
 
 .staff-member {
-    background: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, rgba(155, 77, 226, 0.05), rgba(124, 56, 182, 0.05));
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    border: 2px solid rgba(155, 77, 226, 0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(155, 77, 226, 0.2);
     text-align: center;
     width: 200px;
     position: relative;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: pointer;
 }
 
 .staff-member img {
@@ -173,6 +175,9 @@ header img {
     height: 100px;
     border-radius: 50%;
     margin-bottom: 10px;
+    border: 3px solid rgba(155, 77, 226, 0.5);
+    transition: all 0.4s ease;
+    box-shadow: 0 0 15px rgba(155, 77, 226, 0.3);
 }
 
 .staff-member::before {
@@ -185,7 +190,7 @@ header img {
     background: linear-gradient(
         120deg,
         transparent 30%,
-        rgba(255, 255, 255, 0.4) 50%,
+        rgba(155, 77, 226, 0.6) 50%,
         transparent 70%
     );
     transform: rotate(30deg);
@@ -201,33 +206,73 @@ header img {
 }
 
 .staff-member:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    transform: scale(1.15) translateY(-10px);
+    border-color: rgba(155, 77, 226, 0.8);
+    box-shadow: 0 12px 40px rgba(155, 77, 226, 0.4), 
+                0 0 30px rgba(155, 77, 226, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, rgba(155, 77, 226, 0.15), rgba(124, 56, 182, 0.15));
+}
+
+.staff-member:active {
+    transform: scale(1.12);
+    box-shadow: 0 8px 30px rgba(155, 77, 226, 0.4), 
+                0 0 20px rgba(155, 77, 226, 0.3);
+}
+
+.staff-member img:hover {
+    border-color: rgba(155, 77, 226, 0.9);
+    box-shadow: 0 0 25px rgba(155, 77, 226, 0.6);
+    transform: scale(1.1) rotate(5deg);
 }
 
 .staff-member p {
     font-size: 18px;
     font-weight: bold;
     color: #fff;
+    margin: 10px 0 5px 0;
+    transition: color 0.3s ease;
+}
+
+.staff-member:hover p {
+    color: #9b4de2;
+    text-shadow: 0 0 10px rgba(155, 77, 226, 0.5);
 }
 
 .staff-member span {
     display: block;
     font-size: 14px;
     color: #ccc;
+    transition: color 0.3s ease;
+}
+
+.staff-member:hover span {
+    color: #9b4de2;
 }
 
 .staff-member.creator {
-    border: 2px solid gold;
-    box-shadow: 0 0 15px gold;
+    border: 2px solid #9b4de2;
+    box-shadow: 0 0 20px rgba(155, 77, 226, 0.6), 0 4px 10px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, rgba(155, 77, 226, 0.15), rgba(124, 56, 182, 0.1));
+}
+
+.staff-member.creator:hover {
+    box-shadow: 0 0 40px rgba(155, 77, 226, 0.8), 
+                0 12px 40px rgba(155, 77, 226, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .staff-member.creator::after {
     content: "Website Creator";
     display: block;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
-    color: gold;
+    color: #9b4de2;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(155, 77, 226, 0.3);
+    text-shadow: 0 0 8px rgba(155, 77, 226, 0.4);
+}
     margin-top: 5px;
 }
 

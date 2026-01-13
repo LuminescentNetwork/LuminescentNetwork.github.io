@@ -3,20 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Report a Bug</title>
-  <link rel="icon" href="ln.png"> <!-- Title image -->
+  <title>Report a Bug - Luminescent Network</title>
+  <link rel="icon" href="ln.png">
   <link rel="stylesheet" href="style.css">
-  <style>
-    .bug-form-container {
-      margin: 20px auto;
-      max-width: 800px;
-      padding: 20px;
-      text-align: center;
-    }
-    .bug-intro {
-      margin-bottom: 20px;
-    }
-  </style>
   <script>
     function toggleMenu() {
         document.getElementById("dropdown-menu").classList.toggle("show");
@@ -24,14 +13,14 @@
   </script>
 </head>
 <body>
-  <!-- Sticky Navbar (EXACTLY as in original code) -->
+  <!-- Sticky Navbar -->
   <nav class="navbar" id="nmBar">
     <a href="index.html">Home</a>
     <a href="downloads.html" class="button">Downloads</a>
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSf_M8TPysEcmyGIYTqtLuSY80REuboMwj4nB9t4JenSgTZAIQ/viewform">Apply</a>
     <a href="discord.html">Discord</a>
 
-    <!-- Dropdown Menu (with added Report a Bug link) -->
+    <!-- Dropdown Menu -->
     <div class="dropdown">
       <button onclick="toggleMenu()">☰ Menu</button>
       <div id="dropdown-menu" class="dropdown-content">
@@ -39,7 +28,7 @@
         <a href="downloads.html">Downloads</a>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSf_M8TPysEcmyGIYTqtLuSY80REuboMwj4nB9t4JenSgTZAIQ/viewform">Apply</a>
         <a href="discord.html">Discord</a>
-        <a href="report.html">Report a Bug</a> <!-- Added this line -->
+        <a href="report.html">Report a Bug</a>
         <a href="https://realms.gg/TpuR5Kngiq9Vy3Y" target="_blank">Join Realm</a>
         <a href="https://discord.gg/UH32xxsR" target="_blank">Appeal Ban</a>
         <a href="ann.html">Announcements</a>
@@ -53,28 +42,33 @@
   </header>
 
   <!-- Report a Bug Content -->
-  <div class="bug-form-container">
-    <h2>Report a Bug</h2>
+  <div class="bug-form-container-new">
+    <div class="bug-header">
+      <h1>Report a Bug</h1>
+      <p class="bug-subtitle">Help Us Improve</p>
+    </div>
     <div class="bug-intro">
-      <p>Found an issue? Help us improve by reporting it below.</p>
+      <p>Found an issue? Help us improve by reporting it below. Your feedback is valuable!</p>
     </div>
     
     <!-- Google Form Embed -->
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdEHzBKXWox0f578NMKjUmuq-Cid6WQVmP-B8UpsSbHcmnlnA/viewform?embedded=true" 
-            width="640" 
-            height="913" 
-            frameborder="0" 
-            marginheight="0" 
-            marginwidth="0">
-      Loading…
-    </iframe>
+    <div class="form-wrapper">
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdEHzBKXWox0f578NMKjUmuq-Cid6WQVmP-B8UpsSbHcmnlnA/viewform?embedded=true" 
+              width="640" 
+              height="913" 
+              frameborder="0" 
+              marginheight="0" 
+              marginwidth="0">
+        Loading…
+      </iframe>
+    </div>
     
-    <p>Thank you for helping us improve Luminescent Network!</p>
+    <p class="thank-you-text">Thank you for helping us improve Luminescent Network!</p>
   </div>
 
   <!-- Footer -->
   <footer>
-    <p>Luminescent Network &copy; 2025</p>
+    <p>Luminescent Network &copy; 2026</p>
   </footer>
 </body>
 </html>

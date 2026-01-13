@@ -1,25 +1,124 @@
-<!doctype html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <link rel="icon" href="favicon.png" type="image/png">
-        <a href="https://luminescentnetwork.github.io/"><img src="https://luminescentnetwork.github.io/logo.svg" style="left: 1%; top: 3%; width: 30%;" alt=""></a>
-        <a href="/skygens/"><img src="https://luminescentnetwork.github.io/IMG_0266.jpeg" class="headerIcons" style="top: 3%; width: 8%; left: 5%;"></a>
-        <a href="/servers/"><img src="https://luminescentnetwork.github.io/servers.jpeg" class="headerIcons" style="top: 3%; width: 8%; left: 5%;"></a>
-        <a href="/downloads/"><img src="https://luminescentnetwork.github.io/downloads.jpeg" class="headerIcons" style="top: 3%; width: 8%; left: 5%;"></a>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downloads - Luminescent Network</title>
+    <link rel="icon" href="https://luminescentnetwork.github.io/ln.png">
+    <link rel="stylesheet" href="../home/style.css">
     <style>
-        #bodyText{
-            padding-top: 13%;
-            font-family: arial;
+        .navbar a {
+            color: white;
         }
-        .aquaP{
-            color: lightblue;
+        .downloads-root-container {
+            padding-top: 100px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 50px;
         }
-        #onclick {
-            font-size: 16%;
+
+        .downloads-header {
+            text-align: center;
+            margin: 40px 0;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .downloads-header h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #9b4de2, #ff00ff, #7c38b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .downloads-subtitle {
+            font-size: 20px;
+            color: #ccc;
+            margin-top: 10px;
+        }
+
+        .downloads-grid {
+            max-width: 900px;
+            width: 100%;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .download-card-root {
+            background: linear-gradient(135deg, rgba(155, 77, 226, 0.1), rgba(124, 56, 182, 0.1));
+            border: 2px solid rgba(155, 77, 226, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .download-card-root:hover {
+            border-color: rgba(155, 77, 226, 0.6);
+            box-shadow: 0 12px 48px rgba(155, 77, 226, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .download-card-root h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #9b4de2;
+            text-shadow: 0 0 20px rgba(155, 77, 226, 0.5);
+        }
+
+        .game-description {
+            color: #ccc;
+            margin-bottom: 20px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(155, 77, 226, 0.2);
+            border: 1px solid rgba(155, 77, 226, 0.4);
+            border-radius: 5px;
+            color: #9b4de2;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
-    <div ID="bodyText">
-        <h1>Minecraft Downloads</h1><h3>Luminescent Network Games</h3><h4>Bedrock Games</h4><h5>Forest of the Deep</h5><p>Built by Siuozl, the Website Builder, this game is an extremely big exploration with one goal: find the deepest forest, that is said to be a paradise for everyone. You can venture through a post-apoctolyptic cave system with labs from weird scientists. This game is not released yet. There will soon be a Preview released. Make sure you check again soon!</p>
+    <nav class="navbar">
+        <a href="https://luminescentnetwork.github.io/">Home</a>
+        <a href="https://luminescentnetwork.github.io/home/downloads.html">Downloads</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSf_M8TPysEcmyGIYTqtLuSY80REuboMwj4nB9t4JenSgTZAIQ/viewform">Apply</a>
+        <a href="https://luminescentnetwork.github.io/home/discord.html">Discord</a>
+    </nav>
+
+    <div class="downloads-root-container">
+        <header class="downloads-header">
+            <h1>Minecraft Downloads</h1>
+            <p class="downloads-subtitle">Bedrock Games & Adventures</p>
+        </header>
+
+        <div class="downloads-grid">
+            <div class="download-card-root">
+                <span class="status-badge">COMING SOON</span>
+                <h3>🌲 Forest of the Deep</h3>
+                <p class="game-description">Built by Siuozl, this game is an extremely big exploration adventure with one goal: find the deepest forest, said to be a paradise for everyone. Venture through post-apocalyptic cave systems with labs from weird scientists.</p>
+                <p style="color: #999; font-size: 14px;">A preview will be released soon. Check back here for updates!</p>
+            </div>
+        </div>
     </div>
+
+    <footer>
+        <p>Luminescent Network &copy; 2026</p>
+    </footer>
 </body>
+</html>

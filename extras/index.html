@@ -1,27 +1,127 @@
-<!doctype html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <link rel="icon" href="favicon.png" type="image/png">
-        <a href="https://luminescentnetwork.github.io/"><img src="https://luminescentnetwork.github.io/logo.svg" style="left: 1%; top: 3%; width: 30%;" alt=""></a>
-        <a href="/skygens/"><img src="https://luminescentnetwork.github.io/IMG_0266.jpeg" class="headerIcons" style="top: 3%; width: 8%; left: 5%;"></a>
-        <a href="/servers/"><img src="https://luminescentnetwork.github.io/servers.jpeg" class="headerIcons" style="top: 3%; width: 8%; left: 5%;"></a>
-        <a href="/downloads/"><img src="https://luminescentnetwork.github.io/downloads.jpeg" class="headerIcons" style="top: 3%; width: 8%; left: 5%;"></a>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extras - Luminescent Network</title>
+    <link rel="icon" href="https://luminescentnetwork.github.io/ln.png">
+    <link rel="stylesheet" href="../home/style.css">
     <style>
-        #bodyText{
-            padding-top: 13%;
-            font-family: arial;
+        .navbar a {
+            color: white;
         }
-        .aquaP{
-            color: lightblue;
+        .extras-container {
+            padding-top: 100px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 50px;
         }
-        #onclick {
-            font-size: 16%;
+
+        .extras-header {
+            text-align: center;
+            margin: 40px 0;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .extras-header h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #9b4de2, #ff00ff, #7c38b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .extras-subtitle {
+            font-size: 20px;
+            color: #ccc;
+            margin-top: 10px;
+        }
+
+        .extras-grid {
+            max-width: 900px;
+            width: 100%;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .extras-card {
+            background: linear-gradient(135deg, rgba(155, 77, 226, 0.1), rgba(124, 56, 182, 0.1));
+            border: 2px solid rgba(155, 77, 226, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .extras-card:hover {
+            border-color: rgba(155, 77, 226, 0.6);
+            box-shadow: 0 12px 48px rgba(155, 77, 226, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .extras-card h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #9b4de2;
+            text-shadow: 0 0 20px rgba(155, 77, 226, 0.5);
+        }
+
+        .extras-card p {
+            color: #ccc;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .extras-link {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #9b4de2, #7c38b6);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(155, 77, 226, 0.5);
+        }
+
+        .extras-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(155, 77, 226, 0.4);
         }
     </style>
 </head>
 <body>
-    <div ID="bodyText">
-        <h1>Extras!</h1><h3>Luminescent Network Games</h3><p>Some extra stuff!</p>
-        <h2>Soundtracks</h2>
-        <a href="songs/index.html">Soundtracks Page</a>
+    <nav class="navbar">
+        <a href="https://luminescentnetwork.github.io/">Home</a>
+        <a href="https://luminescentnetwork.github.io/home/downloads.html">Downloads</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSf_M8TPysEcmyGIYTqtLuSY80REuboMwj4nB9t4JenSgTZAIQ/viewform">Apply</a>
+        <a href="https://luminescentnetwork.github.io/home/discord.html">Discord</a>
+    </nav>
+
+    <div class="extras-container">
+        <header class="extras-header">
+            <h1>Extra Content</h1>
+            <p class="extras-subtitle">Bonus Features & Resources</p>
+        </header>
+
+        <div class="extras-grid">
+            <div class="extras-card">
+                <h3>🎵 Soundtracks</h3>
+                <p>Explore our collection of original music and atmospheric soundscapes</p>
+                <a href="songs/index.html" class="extras-link">View Soundtracks</a>
+            </div>
+        </div>
     </div>
+
+    <footer>
+        <p>Luminescent Network &copy; 2026</p>
+    </footer>
 </body>
+</html>

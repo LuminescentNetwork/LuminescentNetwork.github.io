@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luminescent Network - Discord</title>
+    <title>Discord - Luminescent Network</title>
     <link rel="icon" href="ln.png">
     <link rel="stylesheet" href="style.css">
     <script>
@@ -11,92 +11,82 @@
             document.getElementById("dropdown-menu").classList.toggle("show");
         }
     </script>
-    <style>
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
+</head>
+<body>
+    <audio id="bg-music" autoplay loop>
+        <source src="nptg.mp3" type="audio/mpeg">
+    </audio>
 
-        .dropdown button {
-            background-color: rgba(30, 30, 30, 0.7);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+    <nav class="navbar">
+        <a href="index.html">Home</a>
+        <a href="downloads.html" class="button">Downloads</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSf_M8TPysEcmyGIYTqtLuSY80REuboMwj4nB9t4JenSgTZAIQ/viewform">Apply</a>
+        <a href="discord.html" class="active">Discord</a>
 
-        .dropdown button:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 5px;
-        }
+        <div class="dropdown">
+            <button onclick="toggleMenu()">☰ Menu</button>
+            <div id="dropdown-menu" class="dropdown-content">
+                <a href="index.html">Home</a>
+                <a href="downloads.html">Downloads</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSf_M8TPysEcmyGIYTqtLuSY80REuboMwj4nB9t4JenSgTZAIQ/viewform">Apply</a>
+                <a href="discord.html">Discord</a>
+                <a href="report.html">Report a Bug</a>
+                <a href="https://realms.gg/TpuR5Kngiq9Vy3Y" target="_blank">Join Realm</a>
+                <a href="https://discord.gg/UH32xxsR" target="_blank">Appeal Ban</a>
+                <a href="ann.html">Announcements</a>
+            </div>
+        </div>
+    </nav>
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: rgba(30, 30, 30, 0.9);
-            min-width: 160px;
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-            border-radius: 5px;
-        }
+    <header>
+        <img src="luminnet.png" alt="Luminescent Network">
+    </header>
 
-        .dropdown-content a {
-            color: white;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            transition: 0.3s;
-        }
+    <div class="discord-page-new">
+        <div class="discord-content">
+            <h1>Join Our Discord Community</h1>
+            <p class="discord-subtitle">Be Part of Something Special ✨</p>
+            
+            <div class="discord-features">
+                <div class="feature">
+                    <span class="feature-icon">🎮</span>
+                    <h3>Exclusive Updates</h3>
+                    <p>Get the latest news and exclusive previews</p>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">🎉</span>
+                    <h3>Events & Giveaways</h3>
+                    <p>Participate in exciting events and win prizes</p>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">👥</span>
+                    <h3>Community</h3>
+                    <p>Connect with gamers and enthusiasts worldwide</p>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">💬</span>
+                    <h3>Active Chat</h3>
+                    <p>Engage in fun conversations and discussions</p>
+                </div>
+            </div>
 
-        .dropdown-content a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
+            <div class="discord-button-container">
+                <a href="https://discord.gg/wmdafaWmRU" class="discord-invite-btn-new" target="_blank">
+                    Join Our Discord Now 🌟
+                </a>
+            </div>
 
-        .show {
-            display: block;
-        }
+            <p class="discord-tagline">Don't miss out on the action! Join thousands of players in our community. 🚀</p>
+        </div>
+    </div>
 
-        .discord-page {
-            text-align: left;
-            padding: 50px 40px;
-            background-color: rgba(30, 30, 30, 0.9);
-            color: white;
-            max-width: 800px;
-            margin: 50px auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
+    <footer>
+        <p>Luminescent Network &copy; 2026</p>
+    </footer>
+    <script src="script.js"></script>
 
-        .discord-page h2 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        .discord-page p {
-            font-size: 1.5rem;
-            line-height: 1.5;
-            margin-bottom: 15px;
-        }
-
-        .discord-button-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .discord-invite-btn {
-            display: inline-block;
-            padding: 15px 40px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: white;
-            background: url('portl.gif');
-            text-decoration: none;
-            border-radius: 8px;
-            transition: 0.3s;
-            border: 2px solid white;
-        }
+</body>
+</html>
 
         .discord-invite-btn:hover {
             opacity: 0.8;

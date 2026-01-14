@@ -485,6 +485,42 @@ body {
   .nav a {
     font-size: 0.9rem;
   }
+
+  .navbar {
+    padding: 10px 0;
+    gap: 5px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .navbar a {
+    font-size: 14px;
+    padding: 8px 10px;
+    display: none;
+  }
+
+  .navbar a:first-child {
+    display: block;
+  }
+
+  .navbar .dropdown {
+    order: 1;
+  }
+
+  .dropdown button {
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+
+  .dropdown-content {
+    min-width: 150px;
+    font-size: 14px;
+  }
+
+  .dropdown-content a {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
 }
 
 /* ===== NEW PAGES STYLING ===== */

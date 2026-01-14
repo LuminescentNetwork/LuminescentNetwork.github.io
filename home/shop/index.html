@@ -19,7 +19,7 @@
             overflow-x: hidden;
         }
 
-        /* Animated background elements */
+
         .bg-stars {
             position: fixed;
             width: 100%;
@@ -44,7 +44,7 @@
             50% { opacity: 1; }
         }
 
-        /* Header */
+
         header {
             position: relative;
             z-index: 10;
@@ -68,7 +68,7 @@
             font-size: 1.1rem;
         }
 
-        /* Main container */
+
         .container {
             position: relative;
             z-index: 5;
@@ -77,7 +77,7 @@
             padding: 0 2rem;
         }
 
-        /* Connection status */
+
         .connection-status {
             display: flex;
             align-items: center;
@@ -109,7 +109,7 @@
             50% { opacity: 0.5; }
         }
 
-        /* Under construction */
+
         .under-construction {
             display: none;
             position: relative;
@@ -153,7 +153,7 @@
             50% { transform: translateY(-20px); }
         }
 
-        /* Shop grid */
+
         .shop-grid {
             display: none;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -165,7 +165,7 @@
             display: grid;
         }
 
-        /* Product card */
+
         .product-card {
             background: linear-gradient(135deg, rgba(88, 0, 150, 0.6) 0%, rgba(58, 0, 100, 0.6) 100%);
             border: 1px solid #9d4edd;
@@ -256,7 +256,7 @@
             transform: scale(0.95);
         }
 
-        /* Loading state */
+
         .loading {
             display: flex;
             justify-content: center;
@@ -281,7 +281,7 @@
             40% { transform: scale(1); opacity: 1; }
         }
 
-        /* Footer */
+
         footer {
             position: relative;
             z-index: 10;
@@ -293,7 +293,7 @@
             background: linear-gradient(180deg, rgba(45, 0, 82, 0.8) 0%, rgba(29, 0, 51, 0.95) 100%);
         }
 
-        /* Responsive */
+
         @media (max-width: 768px) {
             header h1 {
                 font-size: 1.8rem;
@@ -310,49 +310,39 @@
     </style>
 </head>
 <body>
-    <!-- Animated background stars -->
     <div class="bg-stars" id="starsContainer"></div>
 
-    <!-- Header -->
     <header>
         <h1>✨ Luminescent Network Shop ✨</h1>
         <p>Explore our premium offerings</p>
     </header>
 
-    <!-- Main content -->
     <div class="container">
-        <!-- Connection status -->
         <div class="connection-status">
             <div class="status-indicator" id="statusIndicator"></div>
             <span id="statusText">Connecting...</span>
         </div>
 
-        <!-- Loading state -->
         <div class="loading" id="loadingState">
             <div class="loading-dot"></div>
             <div class="loading-dot"></div>
             <div class="loading-dot"></div>
         </div>
 
-        <!-- Under construction -->
         <div class="under-construction" id="underConstruction">
             <div class="construction-icon">🛠️</div>
             <h2>Shop Under Construction</h2>
             <p>We're setting up something amazing! Please check back soon.</p>
         </div>
 
-        <!-- Shop grid -->
         <div class="shop-grid" id="shopGrid"></div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2026 Luminescent Network. All rights reserved.</p>
     </footer>
 
-    <!-- Script -->
     <script>
-        // Generate random stars
         function generateStars() {
             const starsContainer = document.getElementById('starsContainer');
             const starCount = 100;
@@ -367,10 +357,10 @@
             }
         }
 
-        // Initialize shop
+
         class ShopTemplate {
             constructor() {
-                this.backendUrl = null; // Set to your backend URL, e.g., 'https://api.example.com'
+                this.backendUrl = null;
                 this.products = [];
                 this.isConnected = false;
                 this.init();
@@ -383,7 +373,7 @@
 
             async checkBackendConnection() {
                 try {
-                    // Attempt to connect to backend
+
                     if (this.backendUrl) {
                         const response = await fetch(`${this.backendUrl}/health`, {
                             method: 'GET',
@@ -397,7 +387,7 @@
                             this.showUnderConstruction();
                         }
                     } else {
-                        // No backend URL configured
+
                         this.showUnderConstruction();
                     }
                 } catch (error) {
@@ -480,12 +470,10 @@
             }
         }
 
-        // Initialize the shop
+
         const shop = new ShopTemplate();
 
-        // Example: To connect to a backend, uncomment and set the URL:
-        // shop.backendUrl = 'https://your-api-url.com';
-        // Then reload the page
+
     </script>
 </body>
 </html>

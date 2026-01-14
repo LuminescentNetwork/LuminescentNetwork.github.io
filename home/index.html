@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luminescent Network</title>
-    <link rel="icon" href="ln.png"> <!-- Title image -->
+    <link rel="icon" href="ln.png">
     <link rel="stylesheet" href="style.css">
     <script>
         function toggleMenu() {
@@ -12,7 +12,6 @@
         }
     </script>
     <style>
-        /* Dropdown Menu Styles */
         .dropdown {
             position: relative;
             display: inline-block;
@@ -59,7 +58,6 @@
             display: block;
         }
 
-        /* Join Realm Button */
         .join-realm-btn {
             display: inline-block;
             margin-top: 20px;
@@ -68,7 +66,7 @@
             font-weight: bold;
             color: white;
             background-image: url('portl.gif');
-     /**       background: linear-gradient(135deg, #9b4de2, #7c38b6); **/ /* Purple gradient */
+
             text-decoration: none;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
@@ -77,7 +75,7 @@
 
         .join-realm-btn:hover {
             background-image: url('portl.gif');
-        /**    background: linear-gradient(135deg, #8b42c1, #6e2f9f); **/ /* Darker purple */
+
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(144, 0, 255, 0.614);
         }
@@ -88,15 +86,13 @@
         }
     </style>
 </head>
-<body onload="checkI"> <!-- Checks Wether To Render The Navigation Bar -->
-    <!-- Sticky Navbar -->
+<body onload="checkI">
     <nav class="navbar" id="nmBar">
         <a href="index.html">Home</a>
         <a href="downloads.html" class="button">Downloads</a>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSf_M8TPysEcmyGIYTqtLuSY80REuboMwj4nB9t4JenSgTZAIQ/viewform">Apply</a>
         <a href="discord.html">Discord</a> 
 
-        <!-- Dropdown Menu -->
         <div class="dropdown">
             <button onclick="toggleMenu()">☰ Menu</button>
             <div id="dropdown-menu" class="dropdown-content">
@@ -112,12 +108,10 @@
         </div>
     </nav>
 
-    <!-- Header Image -->
     <header>
         <img src="luminnet.png" alt="Luminescent Network">
     </header>
 
-    <!-- Carousel Section -->
     <div class="carousel-container">
         <div class="carousel">
             <img src="1.png" alt="Image 1">
@@ -127,7 +121,6 @@
         </div>
     </div>
 
-    <!-- Our Staff Section -->
     <section class="staff-section">
         <h2>Our Staff</h2>
         <div class="staff-container">
@@ -167,16 +160,13 @@
         </div>
              </div>
 
-        <!-- Join Realm Button -->
         <a href="https://realms.gg/TpuR5Kngiq9Vy3Y" class="join-realm-btn" target="_blank">Join Realm</a>
     </section>
 
-    <!-- Footer -->
     <footer>
         <p>Luminescent Network 2026</p>
     </footer>
 
-    <!-- Background Music -->
     <audio loop autoplay>
         <source src="song2.mp3" type="audio/mp3">
     </audio>

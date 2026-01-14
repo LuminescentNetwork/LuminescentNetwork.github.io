@@ -493,13 +493,13 @@ body {
     justify-content: space-around;
   }
 
-  .navbar a {
+  .navbar > a {
     font-size: 14px;
     padding: 8px 10px;
     display: none;
   }
 
-  .navbar a:first-child {
+  .navbar > a:first-of-type {
     display: block;
   }
 

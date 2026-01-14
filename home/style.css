@@ -37,6 +37,8 @@ body {
     justify-content: center;
     gap: 20px;
     z-index: 1000;
+    border: 2px solid rgba(155, 77, 226, 0.6);
+    box-shadow: 0 0 20px rgba(155, 77, 226, 0.4), inset 0 0 20px rgba(155, 77, 226, 0.1);
 }
 
 .navbar a {
@@ -45,11 +47,15 @@ body {
     font-size: 18px;
     padding: 10px 15px;
     transition: 0.3s;
+    border: 1px solid rgba(155, 77, 226, 0.4);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(155, 77, 226, 0.2);
 }
 
 .navbar a:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 5px;
+    background: rgba(155, 77, 226, 0.3);
+    border: 1px solid rgba(155, 77, 226, 0.8);
+    box-shadow: 0 0 20px rgba(155, 77, 226, 0.6);
 }
 
 .dropdown {
@@ -62,14 +68,17 @@ body {
     color: white;
     font-size: 18px;
     padding: 10px 20px;
-    border: none;
+    border: 1px solid rgba(155, 77, 226, 0.4);
     cursor: pointer;
     border-radius: 5px;
     transition: 0.3s;
+    box-shadow: 0 0 10px rgba(155, 77, 226, 0.2);
 }
 
 .dropdown button:hover {
-    background-color: #555;
+    background-color: rgba(155, 77, 226, 0.2);
+    border: 1px solid rgba(155, 77, 226, 0.8);
+    box-shadow: 0 0 20px rgba(155, 77, 226, 0.6);
 }
 
 .dropdown-content {

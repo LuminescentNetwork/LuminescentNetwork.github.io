@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luminescent Network - Shop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a0033 0%, #2d0052 50%, #1a0033 100%);
+            color: #e0d9ff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background elements */
+        .bg-stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #9d4edd;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Header */
+        header {
+            position: relative;
+            z-index: 10;
+            padding: 2rem;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(29, 0, 51, 0.95) 0%, rgba(45, 0, 82, 0.8) 100%);
+            border-bottom: 2px solid #9d4edd;
+            box-shadow: 0 4px 20px rgba(157, 78, 221, 0.3);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #c77dff;
+            text-shadow: 0 0 20px rgba(199, 125, 255, 0.5);
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            color: #b5a3ff;
+            font-size: 1.1rem;
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 5;
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Connection status */
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(157, 78, 221, 0.1);
+            border: 1px solid #9d4edd;
+            border-radius: 8px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #e0aaff;
+        }
+
+        .status-indicator.connected {
+            background: #5a189a;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Under construction */
+        .under-construction {
+            display: none;
+            position: relative;
+            z-index: 15;
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(58, 0, 100, 0.9) 0%, rgba(88, 0, 150, 0.9) 100%);
+            border: 2px solid #c77dff;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(157, 78, 221, 0.4);
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+
+        .under-construction.show {
+            display: block;
+        }
+
+        .under-construction h2 {
+            font-size: 2rem;
+            color: #c77dff;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(199, 125, 255, 0.5);
+        }
+
+        .under-construction p {
+            color: #b5a3ff;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .construction-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Shop grid */
+        .shop-grid {
+            display: none;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .shop-grid.show {
+            display: grid;
+        }
+
+        /* Product card */
+        .product-card {
+            background: linear-gradient(135deg, rgba(88, 0, 150, 0.6) 0%, rgba(58, 0, 100, 0.6) 100%);
+            border: 1px solid #9d4edd;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(199, 125, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+
+        .product-card:hover::before {
+            left: 100%;
+        }
+
+        .product-card:hover {
+            border-color: #c77dff;
+            box-shadow: 0 8px 32px rgba(157, 78, 221, 0.4);
+            transform: translateY(-8px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #5a189a 0%, #7209b7 100%);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #c77dff;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            color: #c77dff;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .product-description {
+            color: #b5a3ff;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            color: #e0aaff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .product-button {
+            width: 100%;
+            padding: 0.8rem;
+            background: linear-gradient(135deg, #9d4edd 0%, #c77dff 100%);
+            border: none;
+            border-radius: 8px;
+            color: #1a0033;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .product-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 16px rgba(199, 125, 255, 0.4);
+        }
+
+        .product-button:active {
+            transform: scale(0.95);
+        }
+
+        /* Loading state */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+            gap: 0.5rem;
+        }
+
+        .loading-dot {
+            width: 10px;
+            height: 10px;
+            background: #c77dff;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite;
+        }
+
+        .loading-dot:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            border-top: 2px solid #9d4edd;
+            color: #b5a3ff;
+            background: linear-gradient(180deg, rgba(45, 0, 82, 0.8) 0%, rgba(29, 0, 51, 0.95) 100%);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .shop-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                margin: 1rem auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated background stars -->
+    <div class="bg-stars" id="starsContainer"></div>
+
+    <!-- Header -->
+    <header>
+        <h1>✨ Luminescent Network Shop ✨</h1>
+        <p>Explore our premium offerings</p>
+    </header>
+
+    <!-- Main content -->
+    <div class="container">
+        <!-- Connection status -->
+        <div class="connection-status">
+            <div class="status-indicator" id="statusIndicator"></div>
+            <span id="statusText">Connecting...</span>
+        </div>
+
+        <!-- Loading state -->
+        <div class="loading" id="loadingState">
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+        </div>
+
+        <!-- Under construction -->
+        <div class="under-construction" id="underConstruction">
+            <div class="construction-icon">🛠️</div>
+            <h2>Shop Under Construction</h2>
+            <p>We're setting up something amazing! Please check back soon.</p>
+        </div>
+
+        <!-- Shop grid -->
+        <div class="shop-grid" id="shopGrid"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Luminescent Network. All rights reserved.</p>
+    </footer>
+
+    <!-- Script -->
+    <script>
+        // Generate random stars
+        function generateStars() {
+            const starsContainer = document.getElementById('starsContainer');
+            const starCount = 100;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Initialize shop
+        class ShopTemplate {
+            constructor() {
+                this.backendUrl = null; // Set to your backend URL, e.g., 'https://api.example.com'
+                this.products = [];
+                this.isConnected = false;
+                this.init();
+            }
+
+            async init() {
+                generateStars();
+                await this.checkBackendConnection();
+            }
+
+            async checkBackendConnection() {
+                try {
+                    // Attempt to connect to backend
+                    if (this.backendUrl) {
+                        const response = await fetch(`${this.backendUrl}/health`, {
+                            method: 'GET',
+                            timeout: 5000
+                        });
+
+                        if (response.ok) {
+                            this.isConnected = true;
+                            await this.fetchProducts();
+                        } else {
+                            this.showUnderConstruction();
+                        }
+                    } else {
+                        // No backend URL configured
+                        this.showUnderConstruction();
+                    }
+                } catch (error) {
+                    console.log('Backend not available:', error);
+                    this.showUnderConstruction();
+                }
+            }
+
+            async fetchProducts() {
+                try {
+                    const response = await fetch(`${this.backendUrl}/api/products`);
+                    if (response.ok) {
+                        this.products = await response.json();
+                        this.renderShop();
+                        this.updateConnectionStatus(true);
+                    } else {
+                        this.showUnderConstruction();
+                    }
+                } catch (error) {
+                    console.error('Error fetching products:', error);
+                    this.showUnderConstruction();
+                }
+            }
+
+            renderShop() {
+                const shopGrid = document.getElementById('shopGrid');
+                const loadingState = document.getElementById('loadingState');
+
+                loadingState.style.display = 'none';
+                shopGrid.classList.add('show');
+
+                if (this.products.length === 0) {
+                    shopGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 2rem;">No products available at the moment.</p>';
+                    return;
+                }
+
+                shopGrid.innerHTML = this.products.map(product => `
+                    <div class="product-card">
+                        <div class="product-image">${product.icon || '📦'}</div>
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-description">${product.description}</div>
+                        <div class="product-price">$${product.price.toFixed(2)}</div>
+                        <button class="product-button" onclick="shop.purchaseProduct('${product.id}')">
+                            Add to Cart
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            showUnderConstruction() {
+                const loadingState = document.getElementById('loadingState');
+                const underConstruction = document.getElementById('underConstruction');
+                const shopGrid = document.getElementById('shopGrid');
+
+                loadingState.style.display = 'none';
+                shopGrid.classList.remove('show');
+                underConstruction.classList.add('show');
+
+                this.updateConnectionStatus(false);
+            }
+
+            updateConnectionStatus(connected) {
+                const statusIndicator = document.getElementById('statusIndicator');
+                const statusText = document.getElementById('statusText');
+
+                if (connected) {
+                    statusIndicator.classList.add('connected');
+                    statusText.textContent = '✓ Backend Connected';
+                } else {
+                    statusIndicator.classList.remove('connected');
+                    statusText.textContent = '✗ Offline Mode';
+                }
+            }
+
+            purchaseProduct(productId) {
+                const product = this.products.find(p => p.id === productId);
+                if (product) {
+                    alert(`Added "${product.name}" to cart!\n\nNote: Purchase functionality requires backend implementation.`);
+                }
+            }
+        }
+
+        // Initialize the shop
+        const shop = new ShopTemplate();
+
+        // Example: To connect to a backend, uncomment and set the URL:
+        // shop.backendUrl = 'https://your-api-url.com';
+        // Then reload the page
+    </script>
+</body>
+</html>

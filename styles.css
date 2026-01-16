@@ -134,6 +134,10 @@ body {
     animation: rotate 4s linear infinite;
 }
 
+.logo-text {
+    max-width: 30%;
+}
+
 @keyframes rotate {
     from {
         transform: rotate(0deg);

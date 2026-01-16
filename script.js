@@ -1,4 +1,3 @@
-// ===== MOBILE MENU TOGGLE =====
 document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
@@ -8,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
         navMenu.classList.toggle('active');
     });
 
-    // Close menu when a link is clicked
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function() {
             hamburger.classList.remove('active');
@@ -17,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// ===== SCROLL ANIMATIONS =====
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -36,7 +33,6 @@ document.querySelectorAll('section').forEach(section => {
     observer.observe(section);
 });
 
-// ===== FORM SUBMISSION =====
 document.getElementById('applyForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -48,26 +44,15 @@ document.getElementById('applyForm').addEventListener('submit', function(e) {
         timestamp: new Date().toISOString()
     };
 
-    // Store in localStorage (for demo purposes)
     let applications = JSON.parse(localStorage.getItem('applications')) || [];
     applications.push(formData);
     localStorage.setItem('applications', JSON.stringify(applications));
 
-    // Reset form and show success message
     this.style.display = 'none';
     document.getElementById('successMessage').style.display = 'block';
 
-    // Log the application
     console.log('Application submitted:', formData);
 
-    // You could send this to a backend here
-    // fetch('/api/apply', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(formData)
-    // });
-
-    // Reset after 3 seconds
     setTimeout(() => {
         this.style.display = 'block';
         document.getElementById('successMessage').style.display = 'none';
@@ -75,13 +60,11 @@ document.getElementById('applyForm').addEventListener('submit', function(e) {
     }, 3000);
 });
 
-// ===== CTA BUTTON INTERACTION =====
 document.querySelector('.cta-button').addEventListener('click', function() {
     const scrollTarget = document.getElementById('servers');
     scrollTarget.scrollIntoView({ behavior: 'smooth' });
 });
 
-// ===== NAVBAR ANIMATION ON SCROLL =====
 let lastScrollTop = 0;
 const navbar = document.querySelector('.navbar');
 
@@ -89,22 +72,19 @@ window.addEventListener('scroll', function() {
     let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
     if (scrollTop > 100) {
-        navbar.style.boxShadow = '0 0 30px rgba(217, 70, 239, 0.5)';
+        navbar.style.boxShadow = '0 0 12px rgba(217, 70, 239, 0.3)';
     } else {
-        navbar.style.boxShadow = '0 0 20px rgba(217, 70, 239, 0.3)';
+        navbar.style.boxShadow = '0 0 8px rgba(217, 70, 239, 0.2)';
     }
 
     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
 });
 
-// ===== GLOWING TEXT CURSOR EFFECT =====
 document.querySelectorAll('.glowing-text').forEach(element => {
     element.addEventListener('mouseenter', function() {
         this.style.textShadow = `
-            0 0 20px var(--neon-purple),
-            0 0 40px var(--primary-purple),
-            0 0 60px var(--primary-purple),
-            0 0 100px rgba(168, 85, 247, 1)
+            0 0 8px var(--neon-purple),
+            0 0 15px rgba(168, 85, 247, 0.5)
         `;
     });
 
@@ -113,7 +93,6 @@ document.querySelectorAll('.glowing-text').forEach(element => {
     });
 });
 
-// ===== BUTTON RIPPLE EFFECT =====
 function createRipple(event) {
     const button = event.currentTarget;
     const ripple = document.createElement('span');
@@ -133,12 +112,10 @@ function createRipple(event) {
     setTimeout(() => ripple.remove(), 600);
 }
 
-// Add ripple effect to all buttons
 document.querySelectorAll('button').forEach(button => {
     button.addEventListener('click', createRipple);
 });
 
-// ===== PARALLAX BACKGROUND =====
 window.addEventListener('scroll', function() {
     const scrollY = window.pageYOffset;
     const hero = document.querySelector('.hero');
@@ -147,7 +124,6 @@ window.addEventListener('scroll', function() {
     }
 });
 
-// ===== CARD HOVER EFFECTS =====
 document.querySelectorAll('.info-card, .server-card, .staff-card').forEach(card => {
     card.addEventListener('mouseenter', function() {
         this.style.transform = 'translateY(-10px) scale(1.02)';
@@ -158,13 +134,11 @@ document.querySelectorAll('.info-card, .server-card, .staff-card').forEach(card 
     });
 });
 
-// ===== SMOOTH PAGE LOAD ANIMATION =====
 window.addEventListener('load', function() {
     document.body.style.opacity = '1';
     document.body.style.animation = 'fadeIn 0.5s ease';
 });
 
-// Add fade-in animation if not exists
 const style = document.createElement('style');
 style.textContent = `
     @keyframes fadeIn {
@@ -190,7 +164,6 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// ===== DOWNLOAD BUTTON HANDLERS =====
 document.querySelectorAll('.download-btn').forEach(button => {
     button.addEventListener('click', function() {
         const platform = this.classList[1];
@@ -198,7 +171,6 @@ document.querySelectorAll('.download-btn').forEach(button => {
     });
 });
 
-// ===== JOIN SERVER BUTTON HANDLERS =====
 document.querySelectorAll('.join-btn').forEach(button => {
     button.addEventListener('click', function() {
         const serverName = this.parentElement.querySelector('h3').textContent;
@@ -206,63 +178,12 @@ document.querySelectorAll('.join-btn').forEach(button => {
     });
 });
 
-// ===== ANIMATED SCROLL INDICATOR =====
 function updateScrollIndicator() {
     const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
     const scrolled = (window.pageYOffset / scrollHeight) * 100;
-    
-    // You can use this to create a progress bar if needed
-    // const progressBar = document.querySelector('.progress-bar');
-    // if (progressBar) progressBar.style.width = scrolled + '%';
 }
 
 window.addEventListener('scroll', updateScrollIndicator);
 
-// ===== DYNAMIC PARTICLE BACKGROUND (Optional Enhancement) =====
-function createParticles() {
-    const particleCount = 30;
-    const container = document.querySelector('.hero');
-    
-    if (!container) return;
-    
-    // Uncomment to enable particle effect (can impact performance)
-    /*
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.style.position = 'fixed';
-        particle.style.width = Math.random() * 5 + 'px';
-        particle.style.height = particle.style.width;
-        particle.style.background = `rgba(168, 85, 247, ${Math.random() * 0.5})`;
-        particle.style.borderRadius = '50%';
-        particle.style.left = Math.random() * window.innerWidth + 'px';
-        particle.style.top = Math.random() * window.innerHeight + 'px';
-        particle.style.pointerEvents = 'none';
-        particle.style.boxShadow = `0 0 ${Math.random() * 10 + 5}px rgba(168, 85, 247, 0.5)`;
-        document.body.appendChild(particle);
-
-        animateParticle(particle);
-    }
-    */
-}
-
-function animateParticle(particle) {
-    const duration = Math.random() * 10 + 10;
-    const x = Math.random() * 200 - 100;
-    const y = Math.random() * 200 - 100;
-    
-    particle.animate([
-        { transform: 'translate(0, 0) scale(1)', opacity: 1 },
-        { transform: `translate(${x}px, ${y}px) scale(0)`, opacity: 0 }
-    ], {
-        duration: duration * 1000,
-        easing: 'ease-out',
-        iterations: Infinity
-    });
-}
-
-// Uncomment to enable particles on page load
-// createParticles();
-
-// ===== CONSOLE MESSAGE =====
 console.log('%c✨ Welcome to Luminescent Network ✨', 'color: #d946ef; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px #a855f7;');
 console.log('%cPowered by neon purple aesthetics and smooth animations', 'color: #a855f7; font-size: 14px;');

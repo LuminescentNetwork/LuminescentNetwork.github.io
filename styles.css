@@ -505,11 +505,13 @@ body {
 }
 
 .staff-avatar {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-    animation: avatarBounce 2s ease-in-out infinite;
-    size: 5%;
-    border-radius: 30px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    border: 3px solid rgba(155, 77, 226, 0.5);
+    transition: all 0.4s ease;
+    box-shadow: 0 0 15px rgba(155, 77, 226, 0.3);
 }
 
 .staff-card:nth-child(1) .staff-avatar { animation-delay: 0s; }

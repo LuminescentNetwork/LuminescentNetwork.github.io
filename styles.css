@@ -508,6 +508,8 @@ body {
     font-size: 4rem;
     margin-bottom: 1rem;
     animation: avatarBounce 2s ease-in-out infinite;
+    size: 5%;
+    border-radius: 30px;
 }
 
 .staff-card:nth-child(1) .staff-avatar { animation-delay: 0s; }

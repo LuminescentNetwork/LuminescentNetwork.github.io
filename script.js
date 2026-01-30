@@ -61,7 +61,7 @@ document.getElementById('applyForm').addEventListener('submit', function(e) {
 });
 
 document.querySelector('.cta-button').addEventListener('click', function() {
-    const scrollTarget = document.getElementById('servers');
+    const scrollTarget = document.getElementById('info');
     scrollTarget.scrollIntoView({ behavior: 'smooth' });
 });
 

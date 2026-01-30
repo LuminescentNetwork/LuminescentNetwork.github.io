@@ -844,3 +844,39 @@ body {
         padding: 1.5rem;
     }
 }
+
+.carousel-container {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(217, 70, 239, 0.3);
+}
+
+.carousel {
+    display: flex;
+    width: 400%;
+    animation: scroll 20s infinite linear;
+}
+
+.carousel img {
+    width: 25%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.carousel img:hover {
+    transform: scale(1.05);
+}
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(0); }
+    30% { transform: translateX(-100%); }
+    55% { transform: translateX(-100%); }
+    60% { transform: translateX(-200%); }
+    85% { transform: translateX(-200%); }
+    90% { transform: translateX(-300%); }
+    100% { transform: translateX(-300%); }
+}

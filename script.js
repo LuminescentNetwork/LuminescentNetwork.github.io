@@ -1,14 +1,18 @@
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOMContentLoaded - Initializing page');
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
 
+    console.log('Setting up hamburger menu');
     hamburger.addEventListener('click', function() {
+        console.log('Hamburger menu toggled');
         hamburger.classList.toggle('active');
         navMenu.classList.toggle('active');
     });
 
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function() {
+            console.log('Nav link clicked:', this.textContent);
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
         });
@@ -21,17 +25,21 @@ document.addEventListener('DOMContentLoaded', function() {
     debugConsoleBox.id = 'debug-console';
     debugConsoleBox.style.display = 'none';
     document.body.insertBefore(debugConsoleBox, document.body.firstChild);
+    console.log('Debug console box created');
 
     const logoElement = document.querySelector('.nav-logo');
     if (logoElement) {
         logoElement.addEventListener('click', function() {
             logoClickCount++;
+            console.log('Logo clicked:', logoClickCount, 'times');
             if (logoClickCount === 5) {
+                console.log('Logo clicked 5 times - requesting passcode');
                 const passcode = prompt('Enter passcode:');
                 if (passcode === 'lum1nescent') {
                     debugEnabled = true;
                     debugConsoleBox.style.display = 'block';
                     logToDebugConsole('Debug Console Enabled');
+                    console.log('Debug console enabled with correct passcode');
                     // Redirect console.log to debug console
                     const originalLog = console.log;
                     console.log = function(...args) {
@@ -46,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         logToDebugConsole('[ERROR] ' + args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '));
                     };
                 } else if (passcode !== null) {
+                    console.log('Incorrect passcode entered');
                     alert('Incorrect passcode');
                 }
                 logoClickCount = 0;
@@ -80,6 +89,7 @@ const observerOptions = {
 const observer = new IntersectionObserver(function(entries) {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
+            console.log('Section visible:', entry.target.id);
             entry.target.style.animation = `fadeInUp 0.6s ease forwards`;
             observer.unobserve(entry.target);
         }
@@ -87,10 +97,10 @@ const observer = new IntersectionObserver(function(entries) {
 }, observerOptions);
 
 document.querySelectorAll('section').forEach(section => {
+    console.log('Observing section:', section.id);
     observer.observe(section);
 });
-
-document.getElementById('applyForm').addEventListener('submit', function(e) {
+console.log('Apply form submitted');
     e.preventDefault();
 
     const formData = {
@@ -101,9 +111,12 @@ document.getElementById('applyForm').addEventListener('submit', function(e) {
         timestamp: new Date().toISOString()
     };
 
+    console.log('Form data collected:', formData);
+
     let applications = JSON.parse(localStorage.getItem('applications')) || [];
     applications.push(formData);
     localStorage.setItem('applications', JSON.stringify(applications));
+    console.log('Application saved to localStorage');
 
     this.style.display = 'none';
     document.getElementById('successMessage').style.display = 'block';
@@ -114,8 +127,13 @@ document.getElementById('applyForm').addEventListener('submit', function(e) {
         this.style.display = 'block';
         document.getElementById('successMessage').style.display = 'none';
         this.reset();
+        ole.log('CTA button clicked - scrolling to info section');
+    consconsole.log('Form reset after 3 seconds'display = 'block';
+        document.getElementById('successMessage').style.display = 'none';
+        this.reset();
     }, 3000);
 });
+console.log('Navbar scroll listener initialized');
 
 document.querySelector('.cta-button').addEventListener('click', function() {
     const scrollTarget = document.getElementById('info');
@@ -131,17 +149,21 @@ window.addEventListener('scroll', function() {
     if (scrollTop > 100) {
         navbar.style.boxShadow = '0 0 12px rgba(217, 70, 239, 0.3)';
     } else {
-        navbar.style.boxShadow = '0 0 8px rgba(217, 70, 239, 0.2)';
-    }
-
-    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-});
-
-document.querySelectorAll('.glowing-text').forEach(element => {
+    console.log('Adding glow effect to text element');
     element.addEventListener('mouseenter', function() {
+        console.log('Glowing text hovered');
         this.style.textShadow = `
             0 0 8px var(--neon-purple),
             0 0 15px rgba(168, 85, 247, 0.5)
+        `;
+    });
+
+    element.addEventListener('mouseleave', function() {
+        console.log('Glowing text hover ended');
+        this.style.textShadow = `
+            0 0 8px var(--neon-purple),
+        ole.log('Creating ripple effect on button:', event.currentTarget.textContent);
+    cons    0 0 15px rgba(168, 85, 247, 0.5)
         `;
     });
 
@@ -159,6 +181,7 @@ function createRipple(event) {
     const x = event.clientX - rect.left - size / 2;
     const y = event.clientY - rect.top - size / 2;
 
+    console.log('Setting up ripple effect for button:', button.textContent);
     ripple.style.width = ripple.style.height = size + 'px';
     ripple.style.left = x + 'px';
     ripple.style.top = y + 'px';
@@ -168,12 +191,16 @@ function createRipple(event) {
 
     setTimeout(() => ripple.remove(), 600);
 }
+console.log('Parallax scroll effect initialized');
 
-document.querySelectorAll('button').forEach(button => {
-    button.addEventListener('click', createRipple);
-});
+documonsole.log('Adding hover effect to card');
+    card.addEventListener('mouseenter', function() {
+        console.log('Card hovered - scaling up');
+        this.style.transform = 'translateY(-10px) scale(1.02)';
+    });
 
-window.addEventListener('scroll', function() {
+    card.addEventListener('mouseleave', function() {
+        console.log('Card hover ended - resetting scale');
     const scrollY = window.pageYOffset;
     const hero = document.querySelector('.hero');
     if (hero) {
@@ -181,7 +208,8 @@ window.addEventListener('scroll', function() {
     }
 });
 
-document.querySelectorAll('.info-card, .server-card, .staff-card').forEach(card => {
+docuconsole.log('Page load complete - fading in body');
+    ment.querySelectorAll('.info-card, .server-card, .staff-card').forEach(card => {
     card.addEventListener('mouseenter', function() {
         this.style.transform = 'translateY(-10px) scale(1.02)';
     });
@@ -208,45 +236,36 @@ style.textContent = `
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.6);
         transform: scale(0);
+console.log('Dynamic styles appended to head');
         animation: rippleAnimation 0.6s ease-out;
         pointer-events: none;
     }
-
+console.log('Download button clicked for platform:', platform);
+        
     @keyframes rippleAnimation {
         to {
             transform: scale(4);
             opacity: 0;
         }
-    }
+    }console.log('Join server button clicked for server:', serverName);
+        
 `;
 document.head.appendChild(style);
 
 document.querySelectorAll('.download-btn').forEach(button => {
     button.addEventListener('click', function() {
+    console.log('Scroll progress:', scrolled.toFixed(2) + '%');
         const platform = this.classList[1];
         alert(`Download for ${platform.charAt(0).toUpperCase() + platform.slice(1)} starting...\n\n(This is a demo - implement actual download links as needed)`);
     });
 });
 
 document.querySelectorAll('.join-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        const serverName = this.parentElement.querySelector('h3').textContent;
-        alert(`Connecting to ${serverName}...\n\n(This is a demo - implement actual server connection as needed)`);
-    });
-});
-
-function updateScrollIndicator() {
-    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrolled = (window.pageYOffset / scrollHeight) * 100;
-}
-
-window.addEventListener('scroll', updateScrollIndicator);
-
-// Countdown Timer
-document.addEventListener('DOMContentLoaded', function() {
+    buttole.log('Initializing countdown timer');
     const countdownElement = document.getElementById('countdown');
     
     if (countdownElement) {
+        console.log('Countdown element found - starting timer');
         function updateCountdown() {
             const targetDate = new Date(2026, 3, 27, 0, 0, 0).getTime();
             const now = new Date().getTime();
@@ -269,6 +288,24 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
             } else if (items.length === 5) {
+                console.log('Countdown reached - setting to LIVE NOW');
+                const titleElement = document.querySelector('.countdown-title');
+                if (titleElement) {
+                    titleElement.textContent = 'Luminescent Launch - Out of beta. LIVE NOW!';
+                }
+                items.forEach(item => {
+                    const value = item.querySelector('.countdown-value');
+                    if (value) {
+                        value.textContent = '0';
+                    }
+                });
+            }
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    } else {
+        console.warn('Countdown element not found') {
                 const titleElement = document.querySelector('.countdown-title');
                 if (titleElement) {
                     titleElement.textContent = 'Luminescent Launch - Out of beta. LIVE NOW!';

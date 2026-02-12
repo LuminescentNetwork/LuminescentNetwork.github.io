@@ -24,8 +24,39 @@ document.addEventListener('DOMContentLoaded', function() {
     const debugConsoleBox = document.createElement('div');
     debugConsoleBox.id = 'debug-console';
     debugConsoleBox.style.display = 'none';
+    
+    // Create close/minimize button
+    const debugCloseBtn = document.createElement('button');
+    debugCloseBtn.id = 'debug-close-btn';
+    debugCloseBtn.textContent = '−';
+    debugCloseBtn.style.position = 'absolute';
+    debugCloseBtn.style.top = '5px';
+    debugCloseBtn.style.right = '5px';
+    debugCloseBtn.style.background = '#00ff00';
+    debugCloseBtn.style.color = '#000';
+    debugCloseBtn.style.border = 'none';
+    debugCloseBtn.style.padding = '2px 8px';
+    debugCloseBtn.style.cursor = 'pointer';
+    debugCloseBtn.style.fontWeight = 'bold';
+    debugCloseBtn.style.zIndex = '10000';
+    debugCloseBtn.style.fontSize = '16px';
+    
+    debugConsoleBox.appendChild(debugCloseBtn);
     document.body.insertBefore(debugConsoleBox, document.body.firstChild);
     console.log('Debug console box created');
+    
+    let consoleMinimized = false;
+    debugCloseBtn.addEventListener('click', function() {
+        consoleMinimized = !consoleMinimized;
+        console.log('Debug console minimized:', consoleMinimized);
+        if (consoleMinimized) {
+            debugConsoleBox.classList.add('minimized');
+            debugCloseBtn.textContent = '+';
+        } else {
+            debugConsoleBox.classList.remove('minimized');
+            debugCloseBtn.textContent = '−';
+        }
+    });
 
     const logoElement = document.querySelector('.nav-logo');
     if (logoElement) {

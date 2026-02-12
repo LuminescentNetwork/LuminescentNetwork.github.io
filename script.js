@@ -186,33 +186,35 @@ function updateScrollIndicator() {
 window.addEventListener('scroll', updateScrollIndicator);
 
 // Countdown Timer
-function updateCountdown() {
-    const targetDate = new Date(2026, 3, 27, 0, 0, 0).getTime(); // April 27, 2026 at midnight (local time)
-    const now = new Date().getTime();
-    const difference = targetDate - now;
+document.addEventListener('DOMContentLoaded', function() {
+    function updateCountdown() {
+        const targetDate = new Date(2026, 3, 27, 0, 0, 0).getTime(); // April 27, 2026 at midnight (local time)
+        const now = new Date().getTime();
+        const difference = targetDate - now;
 
-    if (difference > 0) {
-        const weeks = Math.floor(difference / (1000 * 60 * 60 * 24 * 7));
-        const days = Math.floor((difference % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+        if (difference > 0) {
+            const weeks = Math.floor(difference / (1000 * 60 * 60 * 24 * 7));
+            const days = Math.floor((difference % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-        document.querySelectorAll('.countdown-item').forEach((item, index) => {
-            const value = item.querySelector('.countdown-value');
-            const values = [weeks, days, hours, minutes, seconds];
-            value.textContent = values[index];
-        });
-    } else {
-        document.querySelector('.countdown-title').textContent = 'Luminescent Launch - Out of beta. LIVE NOW!';
-        document.querySelectorAll('.countdown-item').forEach(item => {
-            item.querySelector('.countdown-value').textContent = '0';
-        });
+            document.querySelectorAll('.countdown-item').forEach((item, index) => {
+                const value = item.querySelector('.countdown-value');
+                const values = [weeks, days, hours, minutes, seconds];
+                value.textContent = values[index];
+            });
+        } else {
+            document.querySelector('.countdown-title').textContent = 'Luminescent Launch - Out of beta. LIVE NOW!';
+            document.querySelectorAll('.countdown-item').forEach(item => {
+                item.querySelector('.countdown-value').textContent = '0';
+            });
+        }
     }
-}
 
-updateCountdown();
-setInterval(updateCountdown, 1000);
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+});
 
 console.log('%c✨ Welcome to Luminescent Network ✨', 'color: #d946ef; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px #a855f7;');
 console.log('%cPowered by neon purple aesthetics and smooth animations', 'color: #a855f7; font-size: 14px;');

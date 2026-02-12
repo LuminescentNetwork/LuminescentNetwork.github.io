@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     debugConsoleBox.style.display = 'none';
     document.body.insertBefore(debugConsoleBox, document.body.firstChild);
 
-    const logoElement = document.querySelector('.logo-text');
+    const logoElement = document.querySelector('.nav-logo');
     if (logoElement) {
         logoElement.addEventListener('click', function() {
             logoClickCount++;

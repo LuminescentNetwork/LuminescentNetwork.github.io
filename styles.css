@@ -872,12 +872,8 @@ body {
 
 @keyframes scroll {
     0% { transform: translateX(0); }
-    23% { transform: translateX(0); }
     25% { transform: translateX(-25%); }
-    48% { transform: translateX(-25%); }
     50% { transform: translateX(-50%); }
-    73% { transform: translateX(-50%); }
     75% { transform: translateX(-75%); }
-    98% { transform: translateX(-75%); }
-    100% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
 }

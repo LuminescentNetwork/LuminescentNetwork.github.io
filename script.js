@@ -187,7 +187,7 @@ window.addEventListener('scroll', updateScrollIndicator);
 
 // Countdown Timer
 function updateCountdown() {
-    const targetDate = new Date('2026-04-27T00:00:00').getTime();
+    const targetDate = new Date(2026, 3, 27, 0, 0, 0).getTime(); // April 27, 2026 at midnight (local time)
     const now = new Date().getTime();
     const difference = targetDate - now;
 

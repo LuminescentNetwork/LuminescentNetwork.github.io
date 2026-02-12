@@ -13,6 +13,63 @@ document.addEventListener('DOMContentLoaded', function() {
             navMenu.classList.remove('active');
         });
     });
+
+    // Debug Console Feature
+    let logoClickCount = 0;
+    let debugEnabled = false;
+    const debugConsoleBox = document.createElement('div');
+    debugConsoleBox.id = 'debug-console';
+    debugConsoleBox.style.display = 'none';
+    document.body.insertBefore(debugConsoleBox, document.body.firstChild);
+
+    const logoElement = document.querySelector('.logo-text');
+    if (logoElement) {
+        logoElement.addEventListener('click', function() {
+            logoClickCount++;
+            if (logoClickCount === 5) {
+                const passcode = prompt('Enter passcode:');
+                if (passcode === 'lum1nescent') {
+                    debugEnabled = true;
+                    debugConsoleBox.style.display = 'block';
+                    logToDebugConsole('Debug Console Enabled');
+                    // Redirect console.log to debug console
+                    const originalLog = console.log;
+                    console.log = function(...args) {
+                        originalLog.apply(console, args);
+                        logToDebugConsole(args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '));
+                    };
+                    // Capture other console methods
+                    console.warn = function(...args) {
+                        logToDebugConsole('[WARN] ' + args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '));
+                    };
+                    console.error = function(...args) {
+                        logToDebugConsole('[ERROR] ' + args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '));
+                    };
+                } else if (passcode !== null) {
+                    alert('Incorrect passcode');
+                }
+                logoClickCount = 0;
+            }
+        });
+    }
+
+    function logToDebugConsole(message) {
+        if (debugEnabled) {
+            const timestamp = new Date().toLocaleTimeString();
+            const entry = document.createElement('div');
+            entry.style.color = '#00ff00';
+            entry.style.fontFamily = 'monospace';
+            entry.style.fontSize = '12px';
+            entry.style.padding = '2px 5px';
+            entry.style.borderBottom = '1px solid #333';
+            entry.textContent = `[${timestamp}] ${message}`;
+            debugConsoleBox.appendChild(entry);
+            debugConsoleBox.scrollTop = debugConsoleBox.scrollHeight;
+        }
+    }
+
+    // Make logToDebugConsole global so other scripts can use it
+    window.logToDebugConsole = logToDebugConsole;
 });
 
 const observerOptions = {
@@ -187,33 +244,47 @@ window.addEventListener('scroll', updateScrollIndicator);
 
 // Countdown Timer
 document.addEventListener('DOMContentLoaded', function() {
-    function updateCountdown() {
-        const targetDate = new Date(2026, 3, 27, 0, 0, 0).getTime(); // April 27, 2026 at midnight (local time)
-        const now = new Date().getTime();
-        const difference = targetDate - now;
+    const countdownElement = document.getElementById('countdown');
+    
+    if (countdownElement) {
+        function updateCountdown() {
+            const targetDate = new Date(2026, 3, 27, 0, 0, 0).getTime();
+            const now = new Date().getTime();
+            const difference = targetDate - now;
 
-        if (difference > 0) {
-            const weeks = Math.floor(difference / (1000 * 60 * 60 * 24 * 7));
-            const days = Math.floor((difference % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+            const items = countdownElement.querySelectorAll('.countdown-item');
+            
+            if (difference > 0 && items.length === 5) {
+                const weeks = Math.floor(difference / (1000 * 60 * 60 * 24 * 7));
+                const days = Math.floor((difference % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-            document.querySelectorAll('.countdown-item').forEach((item, index) => {
-                const value = item.querySelector('.countdown-value');
                 const values = [weeks, days, hours, minutes, seconds];
-                value.textContent = values[index];
-            });
-        } else {
-            document.querySelector('.countdown-title').textContent = 'Luminescent Launch - Out of beta. LIVE NOW!';
-            document.querySelectorAll('.countdown-item').forEach(item => {
-                item.querySelector('.countdown-value').textContent = '0';
-            });
+                items.forEach((item, index) => {
+                    const value = item.querySelector('.countdown-value');
+                    if (value) {
+                        value.textContent = values[index];
+                    }
+                });
+            } else if (items.length === 5) {
+                const titleElement = document.querySelector('.countdown-title');
+                if (titleElement) {
+                    titleElement.textContent = 'Luminescent Launch - Out of beta. LIVE NOW!';
+                }
+                items.forEach(item => {
+                    const value = item.querySelector('.countdown-value');
+                    if (value) {
+                        value.textContent = '0';
+                    }
+                });
+            }
         }
-    }
 
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    }
 });
 
 console.log('%c✨ Welcome to Luminescent Network ✨', 'color: #d946ef; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px #a855f7;');

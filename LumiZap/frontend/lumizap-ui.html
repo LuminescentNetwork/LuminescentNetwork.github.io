@@ -1,8 +1,5 @@
 <script>
 window.addEventListener("message", (event) => {
-    if (event.data.type === "scratch-extension") {
-        console.log("Received message from Scratch:", event.data.message);
-        window.parent.postMessage({ type: "scratch-extension", message: "received" }, "*");
-    }
+    postMessage("received correctly", "*");
 });
 </script>

@@ -1,5 +1,5 @@
 <script>
 window.addEventListener("message", (event) => {
-    postMessage("received correctly", "*");
+    window.parent.postMessage("received correctly", "*");
 });
 </script>

@@ -937,27 +937,33 @@
                     createdAt: new Date().toISOString()
                 };
 
+                // Initialize users array if needed
+                if (!cloudData.users) {
+                    cloudData.users = [];
+                }
+
                 // Check if username already exists
-                if (cloudData.users && cloudData.users.some(u => u.username === username)) {
+                if (cloudData.users.some(u => u.username === username)) {
                     showAuthError('Username already taken');
                     return;
                 }
 
                 // Add user to users list
-                if (!cloudData.users) cloudData.users = [];
-                cloudData.users.push({
+                const newUser = {
                     id: cloudData.user.id,
                     username: username,
                     email: email || null,
                     passcode: passcode,
                     createdAt: cloudData.user.createdAt
-                });
+                };
+                cloudData.users.push(newUser);
 
                 // Initialize arrays if needed
                 if (!cloudData.communities) cloudData.communities = [];
                 if (!cloudData.dms) cloudData.dms = [];
 
-                console.log('[LumiZap] New account created and saving to cloud:', cloudData.user);
+                console.log('[LumiZap] New account created:', newUser);
+                console.log('[LumiZap] Saving to cloud with users array:', cloudData.users);
                 setCloudData(cloudData);
                 hideAuthModal();
                 updateCommunitiesList();

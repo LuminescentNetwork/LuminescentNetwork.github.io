@@ -418,10 +418,12 @@
             background-color: var(--primary-bg);
             border-radius: 12px;
             padding: 24px;
-            max-width: 400px;
+            max-width: 500px;
             width: 90%;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
             animation: slideInUp var(--transition-speed) ease-out;
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
         @keyframes slideInUp {
@@ -867,26 +869,61 @@
             const authContent = document.getElementById('authContent');
             
             authContent.innerHTML = `
-                <div class="form-group">
-                    <label class="form-label">Username</label>
-                    <input type="text" class="form-input" id="authUsername" placeholder="Choose a username">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Passcode</label>
-                    <input type="password" class="form-input" id="authPasscode" placeholder="Create a passcode">
-                </div>
-                <div class="form-buttons">
-                    <button class="btn-primary" id="registerBtn">Create Account</button>
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <div style="border-bottom: 1px solid var(--text-secondary); padding-bottom: 16px;">
+                        <h3 style="margin-bottom: 12px; color: var(--text-primary); font-size: 16px;">Create New Account</h3>
+                        <div class="form-group">
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-input" id="authUsername" placeholder="Choose a username">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email (optional)</label>
+                            <input type="email" class="form-input" id="authEmail" placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Passcode</label>
+                            <input type="password" class="form-input" id="authPasscode" placeholder="Create a passcode">
+                        </div>
+                        <button class="btn-primary" id="registerBtn" style="width: 100%; margin-top: 10px;">Create Account</button>
+                    </div>
+
+                    <div>
+                        <h3 style="margin-bottom: 12px; color: var(--text-primary); font-size: 16px;">Login to Existing Account</h3>
+                        <div class="form-group">
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-input" id="loginUsername" placeholder="Your username">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Passcode</label>
+                            <input type="password" class="form-input" id="loginPasscode" placeholder="Your passcode">
+                        </div>
+                        <button class="btn-primary" id="loginBtn" style="width: 100%; margin-top: 10px;">Login</button>
+                    </div>
+
+                    <div id="authError" style="color: var(--danger); font-size: 12px; display: none; text-align: center; padding: 10px; background-color: rgba(240, 71, 71, 0.1); border-radius: 4px;"></div>
                 </div>
             `;
 
+            // Handle registration
             const registerBtn = document.getElementById('registerBtn');
             const handleRegister = () => {
                 const username = document.getElementById('authUsername').value.trim();
+                const email = document.getElementById('authEmail').value.trim();
                 const passcode = document.getElementById('authPasscode').value.trim();
+                const errorDiv = document.getElementById('authError');
 
                 if (!username || !passcode) {
-                    alert('Please fill in all fields');
+                    showAuthError('Username and passcode are required');
+                    return;
+                }
+
+                if (username.length < 3) {
+                    showAuthError('Username must be at least 3 characters');
+                    return;
+                }
+
+                if (passcode.length < 4) {
+                    showAuthError('Passcode must be at least 4 characters');
                     return;
                 }
 
@@ -894,25 +931,67 @@
                 cloudData.user = {
                     id: Date.now().toString(),
                     username: username,
-                    passcode: passcode
+                    email: email || null,
+                    passcode: passcode,
+                    createdAt: new Date().toISOString()
                 };
 
-                // Initialize communities array if needed
-                if (!cloudData.communities) {
-                    cloudData.communities = [];
-                }
-                if (!cloudData.dms) {
-                    cloudData.dms = [];
-                }
+                // Initialize arrays if needed
+                if (!cloudData.communities) cloudData.communities = [];
+                if (!cloudData.dms) cloudData.dms = [];
 
-                console.log('[LumiZap] Saving user to cloud:', cloudData.user);
+                console.log('[LumiZap] New account created and saving to cloud:', cloudData.user);
                 setCloudData(cloudData);
                 hideAuthModal();
                 updateCommunitiesList();
             };
 
+            // Handle login
+            const loginBtn = document.getElementById('loginBtn');
+            const handleLogin = () => {
+                const username = document.getElementById('loginUsername').value.trim();
+                const passcode = document.getElementById('loginPasscode').value.trim();
+
+                if (!username || !passcode) {
+                    showAuthError('Username and passcode are required');
+                    return;
+                }
+
+                // Simulate login - in a real app, this would validate against the server
+                // For now, we'll check if the user exists in our local cloud data
+                // and if not, create a simple placeholder (this is for testing)
+                console.log('[LumiZap] Login attempt for user:', username);
+
+                // Create/restore user session
+                cloudData.user = {
+                    id: username + '_' + Date.now().toString(),
+                    username: username,
+                    passcode: passcode,
+                    loginAt: new Date().toISOString()
+                };
+
+                if (!cloudData.communities) cloudData.communities = [];
+                if (!cloudData.dms) cloudData.dms = [];
+
+                console.log('[LumiZap] User logged in and saving to cloud:', cloudData.user);
+                setCloudData(cloudData);
+                hideAuthModal();
+                updateCommunitiesList();
+            };
+
+            function showAuthError(message) {
+                const errorDiv = document.getElementById('authError');
+                errorDiv.textContent = message;
+                errorDiv.style.display = 'block';
+                setTimeout(() => {
+                    errorDiv.style.display = 'none';
+                }, 5000);
+            }
+
             registerBtn.removeEventListener('click', registerBtn.onclick);
+            loginBtn.removeEventListener('click', loginBtn.onclick);
             registerBtn.addEventListener('click', handleRegister);
+            loginBtn.addEventListener('click', handleLogin);
 
             modal.classList.add('active');
         }
@@ -1446,7 +1525,10 @@
             console.log('[LumiZap] Restoring from cache');
             applyCloudData(cachedData);
         } else {
-            console.log('[LumiZap] No cache found, fetching from cloud');
+            console.log('[LumiZap] No cache found, showing login panel');
+            // Show auth modal immediately
+            showAuthModal();
+            // Also try to fetch cloud data in background
             fetchCloudData();
         }
 

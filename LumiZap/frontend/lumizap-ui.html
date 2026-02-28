@@ -774,6 +774,7 @@
                 username: null,
                 email: null,
             },
+            users: [], // Store all registered users
             communities: [],
             dms: [],
             account: {}
@@ -936,6 +937,22 @@
                     createdAt: new Date().toISOString()
                 };
 
+                // Check if username already exists
+                if (cloudData.users && cloudData.users.some(u => u.username === username)) {
+                    showAuthError('Username already taken');
+                    return;
+                }
+
+                // Add user to users list
+                if (!cloudData.users) cloudData.users = [];
+                cloudData.users.push({
+                    id: cloudData.user.id,
+                    username: username,
+                    email: email || null,
+                    passcode: passcode,
+                    createdAt: cloudData.user.createdAt
+                });
+
                 // Initialize arrays if needed
                 if (!cloudData.communities) cloudData.communities = [];
                 if (!cloudData.dms) cloudData.dms = [];
@@ -957,16 +974,26 @@
                     return;
                 }
 
-                // Simulate login - in a real app, this would validate against the server
-                // For now, we'll check if the user exists in our local cloud data
-                // and if not, create a simple placeholder (this is for testing)
-                console.log('[LumiZap] Login attempt for user:', username);
+                // Check if user exists
+                const existingUser = cloudData.users && cloudData.users.find(u => u.username === username);
 
-                // Create/restore user session
+                if (!existingUser) {
+                    showAuthError('User not found');
+                    return;
+                }
+
+                // Validate passcode
+                if (existingUser.passcode !== passcode) {
+                    showAuthError('Incorrect passcode');
+                    return;
+                }
+
+                // Login successful
+                console.log('[LumiZap] User logged in:', username);
                 cloudData.user = {
-                    id: username + '_' + Date.now().toString(),
-                    username: username,
-                    passcode: passcode,
+                    id: existingUser.id,
+                    username: existingUser.username,
+                    email: existingUser.email,
                     loginAt: new Date().toISOString()
                 };
 
@@ -1496,8 +1523,8 @@
         window.addEventListener('message', (event) => {
             console.log('[LumiZap] Received message:', event.data);
 
-            if (event.data && event.data.startsWith('cloud:')) {
-                const cloudValue = event.data.substring(6);
+            if (event.data && event.data.startsWith('fetchResult=')) {
+                const cloudValue = event.data.substring(12); // Remove 'fetchResult=' prefix
                 applyCloudData(cloudValue);
             } else if (event.data === 'fetch.cloud' || event.data === 'ping') {
                 window.parent.postMessage('received correctly', '*');

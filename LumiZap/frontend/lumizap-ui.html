@@ -663,8 +663,8 @@
                 <span>💬</span>
                 DMs
             </button>
-            <button class="nav-btn secondary" id="joinBtn" title="Join a Community">
-                <span>➕</span>
+            <button class="nav-btn secondary" id="joinBtn" title="Join a Community by Invite Code">
+                <span>🔗</span>
                 Join Community
             </button>
             <button class="nav-btn secondary" id="accountBtn" title="My Account">
@@ -683,6 +683,10 @@
             </button>
 
             <div class="communities-header">Your Communities</div>
+            <button class="nav-btn" id="createCommunityBtn" style="margin: 8px; width: calc(100% - 16px); justify-content: center;">
+                <span>➕</span>
+                Create
+            </button>
             <div class="communities-list" id="communitiesList">
                 <!-- Communities will be populated here -->
             </div>
@@ -737,6 +741,26 @@
         </div>
     </div>
 
+    <!-- DMs Modal -->
+    <div class="modal-overlay" id="dmsModal">
+        <div class="modal">
+            <div class="modal-header">Direct Messages</div>
+            <div id="dmsContent">
+                <!-- DMs list will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Join Community by Invite Code Modal -->
+    <div class="modal-overlay" id="joinModal">
+        <div class="modal">
+            <div class="modal-header">Join Community</div>
+            <div id="joinContent">
+                <!-- Join form will be populated here -->
+            </div>
+        </div>
+    </div>
+
     <script>
         // ============================================
         // Cloud Backend Integration
@@ -771,6 +795,8 @@
             const cloudValue = JSON.stringify(data);
             console.log('[LumiZap] Setting cloud data:', cloudValue);
             window.parent.postMessage(`set.cloud:${cloudValue}`, '*');
+            // Also save to localStorage for caching
+            saveToCache(data);
         }
 
         function applyCloudData(data) {
@@ -778,6 +804,9 @@
                 const parsedData = typeof data === 'string' ? JSON.parse(data) : data;
                 cloudData = parsedData;
                 console.log('[LumiZap] Cloud data applied:', cloudData);
+
+                // Save to cache
+                saveToCache(cloudData);
 
                 // Auto-login if user exists
                 if (cloudData.user && cloudData.user.id) {
@@ -791,6 +820,41 @@
                 detectMentions();
             } catch (error) {
                 console.error('[LumiZap] Error parsing cloud data:', error);
+            }
+        }
+
+        // ============================================
+        // Cache Management (localStorage)
+        // ============================================
+
+        function saveToCache(data) {
+            try {
+                localStorage.setItem('lumizap_cloud_data', JSON.stringify(data));
+                console.log('[LumiZap] Data saved to cache');
+            } catch (error) {
+                console.error('[LumiZap] Error saving to cache:', error);
+            }
+        }
+
+        function loadFromCache() {
+            try {
+                const cached = localStorage.getItem('lumizap_cloud_data');
+                if (cached) {
+                    console.log('[LumiZap] Loading data from cache');
+                    return JSON.parse(cached);
+                }
+            } catch (error) {
+                console.error('[LumiZap] Error loading from cache:', error);
+            }
+            return null;
+        }
+
+        function clearCache() {
+            try {
+                localStorage.removeItem('lumizap_cloud_data');
+                console.log('[LumiZap] Cache cleared');
+            } catch (error) {
+                console.error('[LumiZap] Error clearing cache:', error);
             }
         }
 
@@ -816,7 +880,8 @@
                 </div>
             `;
 
-            document.getElementById('registerBtn').addEventListener('click', () => {
+            const registerBtn = document.getElementById('registerBtn');
+            const handleRegister = () => {
                 const username = document.getElementById('authUsername').value.trim();
                 const passcode = document.getElementById('authPasscode').value.trim();
 
@@ -827,14 +892,27 @@
 
                 // Create new user
                 cloudData.user = {
-                    id: Date.now(),
+                    id: Date.now().toString(),
                     username: username,
                     passcode: passcode
                 };
 
+                // Initialize communities array if needed
+                if (!cloudData.communities) {
+                    cloudData.communities = [];
+                }
+                if (!cloudData.dms) {
+                    cloudData.dms = [];
+                }
+
+                console.log('[LumiZap] Saving user to cloud:', cloudData.user);
                 setCloudData(cloudData);
                 hideAuthModal();
-            });
+                updateCommunitiesList();
+            };
+
+            registerBtn.removeEventListener('click', registerBtn.onclick);
+            registerBtn.addEventListener('click', handleRegister);
 
             modal.classList.add('active');
         }
@@ -852,6 +930,12 @@
         }
 
         function updateCommunitiesList() {
+            // Guard: must be logged in
+            if (!cloudData.user?.id) {
+                console.log('[LumiZap] Not logged in, cannot update communities');
+                return;
+            }
+
             const sortedCommunities = sortCommunities(cloudData.communities || []);
             const communitiesList = document.getElementById('communitiesList');
             communitiesList.innerHTML = '';
@@ -891,6 +975,12 @@
         }
 
         function showCommunityModal() {
+            // Guard: must be logged in
+            if (!cloudData.user?.id) {
+                alert('You must be logged in to create a community');
+                return;
+            }
+
             const modal = document.getElementById('communityModal');
             const communityContent = document.getElementById('communityContent');
             
@@ -909,7 +999,8 @@
                 </div>
             `;
 
-            document.getElementById('createCommunityBtn').addEventListener('click', () => {
+            const createBtn = document.getElementById('createCommunityBtn');
+            const handleCreate = () => {
                 const name = document.getElementById('newCommunityName').value.trim();
                 const icon = document.getElementById('newCommunityIcon').value.trim() || '🎯';
 
@@ -920,10 +1011,11 @@
 
                 // Create new community with general channel
                 const newCommunity = {
-                    id: Date.now(),
+                    id: Date.now().toString(),
                     name: name,
                     icon: icon,
                     members: [cloudData.user.username],
+                    inviteCode: Math.random().toString(36).substring(2, 8).toUpperCase(),
                     channels: {
                         general: {
                             id: 'general',
@@ -934,10 +1026,14 @@
                 };
 
                 cloudData.communities.push(newCommunity);
+                console.log('[LumiZap] Saving new community to cloud:', newCommunity);
                 setCloudData(cloudData);
                 modal.classList.remove('active');
                 updateCommunitiesList();
-            });
+            };
+
+            createBtn.removeEventListener('click', createBtn.onclick);
+            createBtn.addEventListener('click', handleCreate);
 
             modal.classList.add('active');
         }
@@ -1011,12 +1107,18 @@
             const sendBtn = document.getElementById('sendBtn');
 
             const sendMessage = () => {
+                // Guard: must be logged in
+                if (!cloudData.user?.id) {
+                    alert('You must be logged in to send messages');
+                    return;
+                }
+
                 const text = messageInput.value.trim();
                 if (!text) return;
 
                 // Create message object
                 const newMessage = {
-                    id: Date.now(),
+                    id: Date.now().toString(),
                     author: cloudData.user.username,
                     text: text,
                     timestamp: new Date().toISOString()
@@ -1032,15 +1134,19 @@
                         cloudData.communities[communityIndex].channels.general = { messages: [] };
                     }
                     cloudData.communities[communityIndex].channels.general.messages.push(newMessage);
+                    console.log('[LumiZap] Saving message to cloud:', newMessage);
+                    setCloudData(cloudData);
                 }
 
-                setCloudData(cloudData);
                 messageInput.value = '';
                 messageInput.focus();
 
                 // Update UI
                 updateMainContent(community);
-                document.getElementById('messagesList').scrollTop = document.getElementById('messagesList').scrollHeight;
+                setTimeout(() => {
+                    const messagesList = document.getElementById('messagesList');
+                    if (messagesList) messagesList.scrollTop = messagesList.scrollHeight;
+                }, 50);
             };
 
             sendBtn.addEventListener('click', sendMessage);
@@ -1122,7 +1228,9 @@
                 </div>
             `;
 
-            document.getElementById('closeAccountBtn').addEventListener('click', () => {
+            const closeBtn = document.getElementById('closeAccountBtn');
+            closeBtn.removeEventListener('click', closeBtn.onclick);
+            closeBtn.addEventListener('click', () => {
                 modal.classList.remove('active');
             });
 
@@ -1131,6 +1239,113 @@
 
         function hideAccountModal() {
             document.getElementById('accountModal').classList.remove('active');
+        }
+
+        // ============================================
+        // DMs Modal
+        // ============================================
+
+        function showDMsModal() {
+            const modal = document.getElementById('dmsModal');
+            const dmsContent = document.getElementById('dmsContent');
+
+            let dmsHTML = '<div style="max-height: 300px; overflow-y: auto;">';
+
+            if (!cloudData.dms || cloudData.dms.length === 0) {
+                dmsHTML += '<p style="color: var(--text-secondary);">No direct messages yet</p>';
+            } else {
+                dmsHTML += '<div style="display: flex; flex-direction: column; gap: 8px;">';
+                cloudData.dms.forEach(dm => {
+                    const otherUser = dm.participants.find(p => p !== cloudData.user.username) || 'Unknown';
+                    const lastMessage = dm.messages[dm.messages.length - 1];
+                    dmsHTML += `
+                        <div style="padding: 12px; background-color: var(--secondary-bg); border-radius: 4px; cursor: pointer;">
+                            <div style="font-weight: 600; color: var(--text-primary);">${otherUser}</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);">${lastMessage ? lastMessage.text.substring(0, 50) : 'No messages'}</div>
+                        </div>
+                    `;
+                });
+                dmsHTML += '</div>';
+            }
+
+            dmsHTML += '<div class="form-buttons" style="margin-top: 20px;"><button class="btn-secondary" id="closeDMsBtn">Close</button></div></div>';
+            dmsContent.innerHTML = dmsHTML;
+
+            const closeDMsBtn = document.getElementById('closeDMsBtn');
+            closeDMsBtn.removeEventListener('click', closeDMsBtn.onclick);
+            closeDMsBtn.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+
+            modal.classList.add('active');
+        }
+
+        // ============================================
+        // Join Community by Invite Code
+        // ============================================
+
+        function showJoinModal() {
+            // Guard: must be logged in
+            if (!cloudData.user?.id) {
+                alert('You must be logged in to join a community');
+                return;
+            }
+
+            const modal = document.getElementById('joinModal');
+            const joinContent = document.getElementById('joinContent');
+
+            joinContent.innerHTML = `
+                <div class="form-group">
+                    <label class="form-label">Invite Code</label>
+                    <input type="text" class="form-input" id="inviteCode" placeholder="Enter invite code (e.g., ABC123)">
+                </div>
+                <div class="form-buttons">
+                    <button class="btn-primary" id="joinBtn">Join</button>
+                    <button class="btn-secondary" id="cancelJoinBtn">Cancel</button>
+                </div>
+            `;
+
+            const joinBtn = document.getElementById('joinBtn');
+            const cancelJoinBtn = document.getElementById('cancelJoinBtn');
+
+            const handleJoin = () => {
+                const code = document.getElementById('inviteCode').value.trim().toUpperCase();
+
+                if (!code) {
+                    alert('Please enter an invite code');
+                    return;
+                }
+
+                // Find community with matching invite code
+                const targetCommunity = cloudData.communities.find(c => c.inviteCode === code);
+
+                if (!targetCommunity) {
+                    alert('Invalid invite code');
+                    return;
+                }
+
+                // Check if already a member
+                if (targetCommunity.members.includes(cloudData.user.username)) {
+                    alert('You are already a member of this community');
+                    return;
+                }
+
+                // Add user to community
+                targetCommunity.members.push(cloudData.user.username);
+                console.log('[LumiZap] Joined community via invite code:', targetCommunity.name);
+                setCloudData(cloudData);
+                modal.classList.remove('active');
+                updateCommunitiesList();
+            };
+
+            joinBtn.removeEventListener('click', joinBtn.onclick);
+            cancelJoinBtn.removeEventListener('click', cancelJoinBtn.onclick);
+            joinBtn.addEventListener('click', handleJoin);
+            cancelJoinBtn.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+
+            modal.classList.add('active');
         }
 
         // ============================================
@@ -1166,19 +1381,24 @@
         document.getElementById('dmsBtn').addEventListener('click', () => {
             console.log('[LumiZap] DMs clicked');
             fetchCloudData();
-            alert('DMs feature coming soon!');
+            showDMsModal();
         });
 
         document.getElementById('joinBtn').addEventListener('click', () => {
-            console.log('[LumiZap] Join/Create Community clicked');
+            console.log('[LumiZap] Join Community by Code clicked');
             fetchCloudData();
-            showCommunityModal();
+            showJoinModal();
         });
 
         document.getElementById('accountBtn').addEventListener('click', () => {
             console.log('[LumiZap] Account clicked');
             fetchCloudData();
             showAccountModal();
+        });
+
+        document.getElementById('createCommunityBtn').addEventListener('click', () => {
+            console.log('[LumiZap] Create Community clicked');
+            showCommunityModal();
         });
 
         // Close modals on overlay click
@@ -1219,7 +1439,17 @@
         // ============================================
 
         console.log('[LumiZap] Initializing...');
-        fetchCloudData();
+        
+        // Try to load from cache first
+        const cachedData = loadFromCache();
+        if (cachedData && cachedData.user?.id) {
+            console.log('[LumiZap] Restoring from cache');
+            applyCloudData(cachedData);
+        } else {
+            console.log('[LumiZap] No cache found, fetching from cloud');
+            fetchCloudData();
+        }
+
         pollCloudUpdates();
 
         // Public API

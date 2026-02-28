@@ -653,6 +653,26 @@
                 max-width: 90%;
             }
         }
+
+        /* Changelog */
+        .changelog {
+            position: fixed;
+            bottom: 8px;
+            right: 8px;
+            font-size: 10px;
+            color: var(--text-secondary);
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: 1px solid var(--text-secondary);
+            opacity: 0.6;
+            transition: opacity var(--transition-speed) ease;
+            z-index: 10;
+        }
+
+        .changelog:hover {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -762,6 +782,9 @@
             </div>
         </div>
     </div>
+
+    <!-- Changelog -->
+    <h6 class="changelog" id="changelog">Change: Account validation</h6>
 
     <script>
         // ============================================

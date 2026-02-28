@@ -784,7 +784,7 @@
     </div>
 
     <!-- Changelog -->
-    <h6 class="changelog" id="changelog">Change: Account validation</h6>
+    <h6 class="changelog" id="changelog">Change: Setcloud Change</h6>
 
     <script>
         // ============================================
@@ -820,7 +820,7 @@
         function setCloudData(data) {
             const cloudValue = JSON.stringify(data);
             console.log('[LumiZap] Setting cloud data:', cloudValue);
-            window.parent.postMessage(`set.cloud:${cloudValue}`, '*');
+            window.parent.postMessage(`set.cloud:::${cloudValue}`, '*');
             // Also save to localStorage for caching
             saveToCache(data);
         }

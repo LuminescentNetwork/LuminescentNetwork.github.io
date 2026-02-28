@@ -784,7 +784,7 @@
     </div>
 
     <!-- Changelog -->
-    <h6 class="changelog" id="changelog">Change: Setcloud Change</h6>
+    <h6 class="changelog" id="changelog">Change: setCloudData conditional init - includes base arrays on user login/register, only sends populated data otherwise to preserve other users' data</h6>
 
     <script>
         // ============================================
@@ -818,9 +818,29 @@
         }
 
         function setCloudData(data) {
-            const cloudValue = JSON.stringify(data);
-            console.log('[LumiZap] Setting cloud data:', cloudValue);
-            window.parent.postMessage(`set.cloud:::${cloudValue}`, '*');
+            // Create a plain object - include base structure if user exists (first initialization)
+            // Otherwise only send populated data to preserve other users' data
+            const plainData = {};
+            
+            // Always include user if it exists
+            if (data.user) {
+                plainData.user = data.user;
+                // If this is a new user (user exists), initialize base arrays if they don't exist
+                plainData.users = data.users || [];
+                plainData.communities = data.communities || [];
+                plainData.dms = data.dms || [];
+                plainData.account = data.account || {};
+            } else {
+                // Only send non-empty data if no user logged in (don't create empty arrays)
+                if (data.users && data.users.length > 0) plainData.users = data.users;
+                if (data.communities && data.communities.length > 0) plainData.communities = data.communities;
+                if (data.dms && data.dms.length > 0) plainData.dms = data.dms;
+                if (data.account && Object.keys(data.account).length > 0) plainData.account = data.account;
+            }
+            
+            const cloudValue = JSON.stringify(plainData);
+            const message = `set.cloud:::${cloudValue}`;
+            window.parent.postMessage(message, '*');
             // Also save to localStorage for caching
             saveToCache(data);
         }

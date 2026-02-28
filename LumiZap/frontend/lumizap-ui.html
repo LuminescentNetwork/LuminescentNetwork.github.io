@@ -553,6 +553,11 @@
 
         // Initialize the page
         initializeCommunities(communities);
+
+        // Message handling for iframe communication
+        window.addEventListener("message", (event) => {
+            window.parent.postMessage("received correctly", "*");
+        });
     </script>
 </body>
 </html> 

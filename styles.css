@@ -763,22 +763,22 @@ body {
 
 @media (max-width: 768px) {
     .nav-menu {
-        position: absolute;
-        top: 70px;
+        position: fixed;
+        top: -100%;
         left: 0;
+        right: 0;
         flex-direction: column;
-        background: rgba(15, 1, 23, 0.98);
+        background: rgba(15, 1, 23, 0.99);
         width: 100%;
         text-align: center;
-        transition: 0.3s;
+        transition: top 0.3s ease;
         padding: 2rem 0;
         gap: 1rem;
         border-bottom: 2px solid var(--neon-purple);
-        transform: translateY(-100%);
     }
 
     .nav-menu.active {
-        transform: translateY(0);
+        top: 70px;
     }
 
     .hamburger {

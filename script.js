@@ -6,17 +6,23 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Setting up hamburger menu');
     console.log('Hamburger element:', hamburger);
     console.log('Nav menu element:', navMenu);
+    console.log('Hamburger display:', window.getComputedStyle(hamburger).display);
     
     if (hamburger && navMenu) {
+        hamburger.style.pointerEvents = 'auto';
         hamburger.addEventListener('click', function(e) {
+            e.preventDefault();
             e.stopPropagation();
-            console.log('Hamburger menu toggled');
+            console.log('🍔 Hamburger menu clicked!');
+            console.log('Hamburger classList before:', hamburger.className);
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
+            console.log('Hamburger classList after:', hamburger.className);
+            console.log('NavMenu classList after:', navMenu.className);
         });
 
         document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function() {
+            link.addEventListener('click', function(e) {
                 console.log('Nav link clicked:', this.textContent);
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');

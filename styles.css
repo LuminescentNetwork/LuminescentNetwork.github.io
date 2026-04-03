@@ -189,6 +189,11 @@ body {
     flex-direction: column;
     cursor: pointer;
     gap: 5px;
+    z-index: 1001;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
 }
 
 .hamburger span {

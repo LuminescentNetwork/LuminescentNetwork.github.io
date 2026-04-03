@@ -4,19 +4,35 @@ document.addEventListener('DOMContentLoaded', function() {
     const navMenu = document.querySelector('.nav-menu');
 
     console.log('Setting up hamburger menu');
-    hamburger.addEventListener('click', function() {
-        console.log('Hamburger menu toggled');
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
-
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function() {
-            console.log('Nav link clicked:', this.textContent);
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
+    console.log('Hamburger element:', hamburger);
+    console.log('Nav menu element:', navMenu);
+    
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            console.log('Hamburger menu toggled');
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
         });
-    });
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                console.log('Nav link clicked:', this.textContent);
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-container')) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    } else {
+        console.error('Hamburger or nav menu element not found!');
+    }
 
     // Debug Console Feature
     let logoClickCount = 0;
@@ -131,46 +147,20 @@ document.querySelectorAll('section').forEach(section => {
     console.log('Observing section:', section.id);
     observer.observe(section);
 });
-console.log('Apply form submitted');
-    e.preventDefault();
 
-    const formData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        position: document.getElementById('position').value,
-        message: document.getElementById('message').value,
-        timestamp: new Date().toISOString()
-    };
+// CTA button click
+const ctaButton = document.querySelector('.cta-button');
+if (ctaButton) {
+    ctaButton.addEventListener('click', function() {
+        console.log('CTA button clicked - scrolling to info section');
+        const scrollTarget = document.getElementById('info');
+        if (scrollTarget) {
+            scrollTarget.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+}
 
-    console.log('Form data collected:', formData);
-
-    let applications = JSON.parse(localStorage.getItem('applications')) || [];
-    applications.push(formData);
-    localStorage.setItem('applications', JSON.stringify(applications));
-    console.log('Application saved to localStorage');
-
-    this.style.display = 'none';
-    document.getElementById('successMessage').style.display = 'block';
-
-    console.log('Application submitted:', formData);
-
-    setTimeout(() => {
-        this.style.display = 'block';
-        document.getElementById('successMessage').style.display = 'none';
-        this.reset();
-        ole.log('CTA button clicked - scrolling to info section');
-    consconsole.log('Form reset after 3 seconds'display = 'block';
-        document.getElementById('successMessage').style.display = 'none';
-        this.reset();
-    }, 3000);
-});
-console.log('Navbar scroll listener initialized');
-
-document.querySelector('.cta-button').addEventListener('click', function() {
-    const scrollTarget = document.getElementById('info');
-    scrollTarget.scrollIntoView({ behavior: 'smooth' });
-});
-
+// Scroll effects and navbar glow
 let lastScrollTop = 0;
 const navbar = document.querySelector('.navbar');
 
@@ -178,8 +168,18 @@ window.addEventListener('scroll', function() {
     let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
     if (scrollTop > 100) {
-        navbar.style.boxShadow = '0 0 12px rgba(217, 70, 239, 0.3)';
+        if (navbar) {
+            navbar.style.boxShadow = '0 0 12px rgba(217, 70, 239, 0.3)';
+        }
     } else {
+        if (navbar) {
+            navbar.style.boxShadow = '0 0 8px rgba(217, 70, 239, 0.2)';
+        }
+    }
+});
+
+// Glow effect on text elements
+document.querySelectorAll('.glowing-text').forEach(element => {
     console.log('Adding glow effect to text element');
     element.addEventListener('mouseenter', function() {
         console.log('Glowing text hovered');
@@ -192,17 +192,13 @@ window.addEventListener('scroll', function() {
     element.addEventListener('mouseleave', function() {
         console.log('Glowing text hover ended');
         this.style.textShadow = `
-            0 0 8px var(--neon-purple),
-        ole.log('Creating ripple effect on button:', event.currentTarget.textContent);
-    cons    0 0 15px rgba(168, 85, 247, 0.5)
+            0 0 5px var(--neon-purple),
+            0 0 10px rgba(168, 85, 247, 0.3)
         `;
-    });
-
-    element.addEventListener('mouseleave', function() {
-        this.style.textShadow = '';
     });
 });
 
+// Ripple effect function
 function createRipple(event) {
     const button = event.currentTarget;
     const ripple = document.createElement('span');
@@ -212,7 +208,7 @@ function createRipple(event) {
     const x = event.clientX - rect.left - size / 2;
     const y = event.clientY - rect.top - size / 2;
 
-    console.log('Setting up ripple effect for button:', button.textContent);
+    console.log('Creating ripple effect on button:', event.currentTarget.textContent);
     ripple.style.width = ripple.style.height = size + 'px';
     ripple.style.left = x + 'px';
     ripple.style.top = y + 'px';
@@ -222,9 +218,10 @@ function createRipple(event) {
 
     setTimeout(() => ripple.remove(), 600);
 }
-console.log('Parallax scroll effect initialized');
 
-documonsole.log('Adding hover effect to card');
+// Card hover effects
+document.querySelectorAll('.info-card, .server-card, .staff-card').forEach(card => {
+    console.log('Adding hover effect to card');
     card.addEventListener('mouseenter', function() {
         console.log('Card hovered - scaling up');
         this.style.transform = 'translateY(-10px) scale(1.02)';
@@ -232,29 +229,11 @@ documonsole.log('Adding hover effect to card');
 
     card.addEventListener('mouseleave', function() {
         console.log('Card hover ended - resetting scale');
-    const scrollY = window.pageYOffset;
-    const hero = document.querySelector('.hero');
-    if (hero) {
-        hero.style.backgroundPosition = `0 ${scrollY * 0.5}px`;
-    }
-});
-
-docuconsole.log('Page load complete - fading in body');
-    ment.querySelectorAll('.info-card, .server-card, .staff-card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-10px) scale(1.02)';
-    });
-
-    card.addEventListener('mouseleave', function() {
         this.style.transform = 'translateY(0) scale(1)';
     });
 });
 
-window.addEventListener('load', function() {
-    document.body.style.opacity = '1';
-    document.body.style.animation = 'fadeIn 0.5s ease';
-});
-
+// Dynamic styles
 const style = document.createElement('style');
 style.textContent = `
     @keyframes fadeIn {
@@ -267,92 +246,89 @@ style.textContent = `
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.6);
         transform: scale(0);
-console.log('Dynamic styles appended to head');
         animation: rippleAnimation 0.6s ease-out;
         pointer-events: none;
     }
-console.log('Download button clicked for platform:', platform);
         
     @keyframes rippleAnimation {
         to {
             transform: scale(4);
             opacity: 0;
         }
-    }console.log('Join server button clicked for server:', serverName);
-        
+    }
 `;
 document.head.appendChild(style);
+console.log('Dynamic styles appended to head');
 
+// Download button handlers
 document.querySelectorAll('.download-btn').forEach(button => {
     button.addEventListener('click', function() {
-    console.log('Scroll progress:', scrolled.toFixed(2) + '%');
+        console.log('Download button clicked for platform:', this.classList[1]);
         const platform = this.classList[1];
         alert(`Download for ${platform.charAt(0).toUpperCase() + platform.slice(1)} starting...\n\n(This is a demo - implement actual download links as needed)`);
     });
 });
 
+// Join server button handlers
 document.querySelectorAll('.join-btn').forEach(button => {
-    buttole.log('Initializing countdown timer');
-    const countdownElement = document.getElementById('countdown');
-    
-    if (countdownElement) {
-        console.log('Countdown element found - starting timer');
-        function updateCountdown() {
-            const targetDate = new Date(2026, 3, 27, 0, 0, 0).getTime();
-            const now = new Date().getTime();
-            const difference = targetDate - now;
+    button.addEventListener('click', function() {
+        console.log('Join server button clicked for server:', this.textContent);
+        alert('Server join functionality would be implemented here');
+    });
+});
 
-            const items = countdownElement.querySelectorAll('.countdown-item');
-            
-            if (difference > 0 && items.length === 5) {
-                const weeks = Math.floor(difference / (1000 * 60 * 60 * 24 * 7));
-                const days = Math.floor((difference % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+// Countdown timer
+const countdownElement = document.getElementById('countdown');
 
-                const values = [weeks, days, hours, minutes, seconds];
-                items.forEach((item, index) => {
-                    const value = item.querySelector('.countdown-value');
-                    if (value) {
-                        value.textContent = values[index];
-                    }
-                });
-            } else if (items.length === 5) {
-                console.log('Countdown reached - setting to LIVE NOW');
-                const titleElement = document.querySelector('.countdown-title');
-                if (titleElement) {
-                    titleElement.textContent = 'Luminescent Launch - Out of beta. LIVE NOW!';
+if (countdownElement) {
+    console.log('Countdown element found - starting timer');
+    function updateCountdown() {
+        const targetDate = new Date(2026, 3, 27, 0, 0, 0).getTime();
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        const items = countdownElement.querySelectorAll('.countdown-item');
+        
+        if (difference > 0 && items.length === 5) {
+            const weeks = Math.floor(difference / (1000 * 60 * 60 * 24 * 7));
+            const days = Math.floor((difference % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            const values = [weeks, days, hours, minutes, seconds];
+            items.forEach((item, index) => {
+                const value = item.querySelector('.countdown-value');
+                if (value) {
+                    value.textContent = values[index];
                 }
-                items.forEach(item => {
-                    const value = item.querySelector('.countdown-value');
-                    if (value) {
-                        value.textContent = '0';
-                    }
-                });
+            });
+        } else if (items.length === 5) {
+            console.log('Countdown reached - setting to LIVE NOW');
+            const titleElement = document.querySelector('.countdown-title');
+            if (titleElement) {
+                titleElement.textContent = 'Luminescent Launch - Out of beta. LIVE NOW!';
             }
-        }
-
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-    } else {
-        console.warn('Countdown element not found') {
-                const titleElement = document.querySelector('.countdown-title');
-                if (titleElement) {
-                    titleElement.textContent = 'Luminescent Launch - Out of beta. LIVE NOW!';
+            items.forEach(item => {
+                const value = item.querySelector('.countdown-value');
+                if (value) {
+                    value.textContent = '0';
                 }
-                items.forEach(item => {
-                    const value = item.querySelector('.countdown-value');
-                    if (value) {
-                        value.textContent = '0';
-                    }
-                });
-            }
+            });
         }
-
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
     }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+} else {
+    console.warn('Countdown element not found');
+}
+
+// Page load fade in
+window.addEventListener('load', function() {
+    console.log('Page load complete - fading in body');
+    document.body.style.opacity = '1';
+    document.body.style.animation = 'fadeIn 0.5s ease';
 });
 
 console.log('%c✨ Welcome to Luminescent Network ✨', 'color: #d946ef; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px #a855f7;');

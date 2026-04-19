@@ -1,81 +1,142 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VoxeliaForge</title>
 
   <style>
-:root { 
-    --primary-purple: #a855f7;
-    --dark-purple: #7c3aed;
-    --light-purple: #c084fc;
-    --neon-purple: #d946ef;
-    --darker-bg: #0f0117;
-    --dark-bg: #1a0033;
-    --text-primary: #e0e0ff;
+:root {
+  --neon-purple: #d946ef;
+  --primary-purple: #a855f7;
+  --bg: #0f0117;
+  --card: #1a0b2e;
+  --text: #e0e0ff;
+  --muted: #b0b0ff;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: Arial;
-    background: #0f0117;
-    color: white;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
 }
 
+/* NAVBAR */
 .navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: rgba(15,1,23,0.95);
-    padding: 10px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(15, 1, 23, 0.95);
+  border-bottom: 2px solid var(--neon-purple);
+  z-index: 1000;
 }
 
 .nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  color: var(--neon-purple);
 }
 
 .nav-logo img {
-    width: 35px;
-    height: 35px;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
 }
 
 .nav-menu {
-    display: flex;
-    gap: 20px;
-    list-style: none;
+  display: flex;
+  gap: 18px;
+  list-style: none;
 }
 
 .nav-link {
-    color: white;
-    text-decoration: none;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
 }
 
+.nav-link:hover {
+  color: var(--neon-purple);
+}
+
+/* HERO */
 .hero {
-    margin-top: 100px;
-    text-align: center;
+  margin-top: 100px;
+  text-align: center;
+  padding: 60px 20px;
 }
 
 .glowing-text {
-    font-size: 3rem;
-    color: var(--neon-purple);
+  font-size: 3rem;
+  color: var(--neon-purple);
+  text-shadow: 0 0 10px var(--neon-purple);
 }
 
 .cta-button {
-    margin-top: 20px;
-    padding: 1rem 2rem;
-    background: var(--neon-purple);
-    border: none;
-    color: white;
-    cursor: pointer;
-    border-radius: 10px;
+  margin-top: 20px;
+  padding: 14px 28px;
+  background: var(--neon-purple);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* SECTIONS */
+section {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(217, 70, 239, 0.3);
+}
+
+.card:hover {
+  border-color: var(--neon-purple);
+}
+
+.download-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 22px;
+  background: var(--primary-purple);
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  color: var(--muted);
 }
   </style>
 </head>
@@ -85,16 +146,17 @@ body {
 <!-- NAVBAR -->
 <nav class="navbar">
   <div class="nav-container">
-    
+
     <div class="nav-logo">
-      <img src="logo.png" alt="VoxeliaForge Logo">
+      <img src="logo.png" alt="logo" />
+      VoxeliaForge
     </div>
 
     <ul class="nav-menu">
       <li><a class="nav-link" href="#features">Features</a></li>
       <li><a class="nav-link" href="#screens">Screens</a></li>
-      <li><a class="nav-link" href="#download">Download</a></li>
       <li><a class="nav-link" href="#kids">Kids</a></li>
+      <li><a class="nav-link" href="#download">Download</a></li>
     </ul>
 
   </div>
@@ -106,6 +168,40 @@ body {
   <p>Next-gen chat & community platform</p>
   <button class="cta-button">Download Now</button>
 </section>
+
+<!-- FEATURES -->
+<section id="features">
+  <h2>Features</h2>
+  <div class="card-grid">
+    <div class="card">💬 Real-time chat</div>
+    <div class="card">🌐 Servers</div>
+    <div class="card">⚡ Fast system</div>
+    <div class="card">🎮 Game tools</div>
+  </div>
+</section>
+
+<!-- SCREENS -->
+<section id="screens">
+  <h2>Screenshots</h2>
+  <div class="card">Add images here</div>
+</section>
+
+<!-- KIDS -->
+<section id="kids">
+  <h2>VoxeliaForge Kids</h2>
+  <p>Safe version for younger users</p>
+  <a class="download-btn" href="#">Download Kids</a>
+</section>
+
+<!-- DOWNLOAD -->
+<section id="download">
+  <h2>Download</h2>
+  <a class="download-btn" href="#">Download for Windows</a>
+</section>
+
+<footer>
+  © 2026 VoxeliaForge
+</footer>
 
 </body>
 </html>

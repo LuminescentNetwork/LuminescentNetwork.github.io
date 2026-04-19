@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
-  <head>
-      <meta charset="UTF-8" />
+<head>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css">
-    <title>VoxeliaForge</title>
+  <title>VoxeliaForge</title>
 
   <style>
 :root { 
@@ -15,9 +14,6 @@
     --darker-bg: #0f0117;
     --dark-bg: #1a0033;
     --text-primary: #e0e0ff;
-    --text-secondary: #b0b0ff;
-    --glow-color: #a855f7;
-    --transition: all 0.3s ease;
 }
 
 * {
@@ -26,126 +22,90 @@
     box-sizing: border-box;
 }
 
-html { scroll-behavior: smooth; }
-
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0f0117 0%, #1a0033 50%, #0f0117 100%);
-    color: var(--text-primary);
-    overflow-x: hidden;
-    min-height: 100vh;
-    animation: backgroundShift 15s ease infinite;
-}
-
-@keyframes backgroundShift {
-    0%, 100% { background: linear-gradient(135deg, #0f0117 0%, #1a0033 50%, #0f0117 100%); }
-    50% { background: linear-gradient(135deg, #1a0033 0%, #2d0a4d 50%, #1a0033 100%); }
-}
-
-.glowing-text {
-    font-size: 3rem;
-    font-weight: 800;
-    text-align: center;
-    color: var(--neon-purple);
-    text-shadow: 0 0 5px var(--neon-purple);
+    font-family: Arial;
+    background: #0f0117;
+    color: white;
 }
 
 .navbar {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(15, 1, 23, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 2px solid var(--neon-purple);
-    z-index: 1000;
+    background: rgba(15,1,23,0.95);
+    padding: 10px;
 }
 
 .nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
 }
 
-.nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--neon-purple);
-    font-weight: 800;
+.nav-logo img {
+    width: 35px;
+    height: 35px;
 }
 
 .nav-menu {
     display: flex;
-    gap: 2rem;
+    gap: 20px;
     list-style: none;
 }
 
 .nav-link {
-    color: var(--text-primary);
+    color: white;
     text-decoration: none;
 }
 
 .hero {
-    margin-top: 90px;
-    padding: 4rem 2rem;
+    margin-top: 100px;
     text-align: center;
+}
+
+.glowing-text {
+    font-size: 3rem;
+    color: var(--neon-purple);
 }
 
 .cta-button {
     margin-top: 20px;
     padding: 1rem 2rem;
     background: var(--neon-purple);
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 10px;
+}
   </style>
-  <body> 
- <!-- NAVBAR -->
+</head>
+
+<body>
+
+<!-- NAVBAR -->
 <nav class="navbar">
   <div class="nav-container">
-    <div class="nav-logo"> <img src="logo.png" alt="VoxeliaForge< Icon"> </div>
+    
+    <div class="nav-logo">
+      <img src="logo.png" alt="VoxeliaForge Logo">
+    </div>
+
     <ul class="nav-menu">
       <li><a class="nav-link" href="#features">Features</a></li>
       <li><a class="nav-link" href="#screens">Screens</a></li>
       <li><a class="nav-link" href="#download">Download</a></li>
       <li><a class="nav-link" href="#kids">Kids</a></li>
     </ul>
+
   </div>
 </nav>
 
-    <!-- HERO -->
+<!-- HERO -->
 <section class="hero">
   <h1 class="glowing-text">VoxeliaForge</h1>
   <p>Next-gen chat & community platform</p>
   <button class="cta-button">Download Now</button>
 </section>
 
-    <!-- FEATURES -->
-<section id="features" class="info-section">
-  <div class="info-grid">
-    <div class="info-card"> Real-time chat</div>
-    <div class="info-card">Server Custom</div>
-    <div class="info-card">Build your Own Games and Bots</div>
-    <div class="info-card">Safe Kids Mode</div>
-  </div>
-</section>
-
-    <!-- SCREENSHOT -->
-<section id="screens" class="hero-card">
-  <h2>Screenshots</h2>
-  <p>Add your app images here</p>
-</section>
-
-    <!-- KIDS VERSION -->
-<section id="kids" class="hero-card">
-  <h2>VoxeliaForge Kids</h2>
-  <p>Safe version for younger users with limited features and protection.</p>
-  <a class="btn" href="#">Download Kids Version</a>
-</section>
-
-<!-- DOWNLOAD -->
-<section id="download" class="download">
-  <h2>Download VoxeliaForge</h2>
-  <a class="btn" href="#">Download for Windows</a>
-</section>
-  </body>
-  </head>
+</body>
 </html>

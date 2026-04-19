@@ -5,7 +5,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css">
 
-     <style>
+  <style>
+:root { 
+    --primary-purple: #a855f7;
+    --dark-purple: #7c3aed;
+    --light-purple: #c084fc;
+    --neon-purple: #d946ef;
+    --darker-bg: #0f0117;
+    --dark-bg: #1a0033;
+    --text-primary: #e0e0ff;
+    --text-secondary: #b0b0ff;
+    --glow-color: #a855f7;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f0117 0%, #1a0033 50%, #0f0117 100%);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    min-height: 100vh;
+    animation: backgroundShift 15s ease infinite;
+}
+
+@keyframes backgroundShift {
+    0%, 100% { background: linear-gradient(135deg, #0f0117 0%, #1a0033 50%, #0f0117 100%); }
+    50% { background: linear-gradient(135deg, #1a0033 0%, #2d0a4d 50%, #1a0033 100%); }
+}
+
+.glowing-text {
+    font-size: 3rem;
+    font-weight: 800;
+    text-align: center;
+    color: var(--neon-purple);
+    text-shadow: 0 0 5px var(--neon-purple);
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(15, 1, 23, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--neon-purple);
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--neon-purple);
     font-weight: 800;
 }
 
@@ -30,53 +95,6 @@
     margin-top: 20px;
     padding: 1rem 2rem;
     background: var(--neon-purple);
-    border: none;
-    border-radius: 10px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.info-section {
-    padding: 4rem 2rem;
-}
-
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.5rem;
-}
-
-.info-card {
-    padding: 1.5rem;
-    background: rgba(124,58,237,0.15);
-    border: 1px solid var(--primary-purple);
-    border-radius: 12px;
-    text-align: center;
-}
-
-.hero-card {
-    margin: 3rem auto;
-    max-width: 700px;
-    padding: 2rem;
-    background: rgba(43,45,49,0.6);
-    border-radius: 16px;
-    text-align: center;
-}
-
-.download {
-    text-align: center;
-    padding: 4rem 2rem;
-}
-
-.btn {
-    display: inline-block;
-    padding: 12px 20px;
-    background: var(--neon-purple);
-    color: white;
-    border-radius: 10px;
-    text-decoration: none;
-}
   </style>
   <body> 
  <!-- NAVBAR -->

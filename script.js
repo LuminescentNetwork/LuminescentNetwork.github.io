@@ -1,341 +1,204 @@
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOMContentLoaded - Initializing page');
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
+async function loadStaff() {
+    try {
+        const res = await fetch("staff_members.json")
+        const staff = await res.json()
 
-    console.log('Setting up hamburger menu');
-    console.log('Hamburger element:', hamburger);
-    console.log('Nav menu element:', navMenu);
-    console.log('Hamburger display:', window.getComputedStyle(hamburger).display);
-    
-    if (hamburger && navMenu) {
-        hamburger.style.pointerEvents = 'auto';
-        hamburger.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('🍔 Hamburger menu clicked!');
-            console.log('Hamburger classList before:', hamburger.className);
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-            console.log('Hamburger classList after:', hamburger.className);
-            console.log('NavMenu classList after:', navMenu.className);
-        });
+        const grid = document.getElementById("staff-grid")
 
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                console.log('Nav link clicked:', this.textContent);
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-            });
-        });
+        const html = staff.map(member => `
+    <div class="staff-card">
+        <div class="staff-avatar">
+            <img src="images/pfps/${member.image}" alt="${member.name}" loading="lazy" decoding="async">
+        </div>
+        <h3>${member.name}</h3>
+        <p class="role">${member.role}</p>
+        <p class="bio">${member.bio}</p>
+    </div>
+`).join("")
+
+        grid.innerHTML = html
+
+    }
+    catch (err) {
+        console.error("Failed to load staff_members.json:", err)
+    }
+}
+
+loadStaff()
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("DOMContentLoaded - Initializing page")
+    const menuToggleButton = document.querySelector(".hamburger")
+    const navigationMenu = document.querySelector(".nav-menu")
+
+    console.log("Setting up hamburger menu")
+    console.log("Hamburger element:", menuToggleButton)
+    console.log("Nav menu element:", navigationMenu)
+    console.log("Hamburger display:", window.getComputedStyle(menuToggleButton).display)
+
+    if (menuToggleButton && navigationMenu) {
+        menuToggleButton.addEventListener("click", function (e) {
+            e.preventDefault()
+            e.stopPropagation()
+            console.log("🍔 Hamburger menu clicked!")
+            console.log("Hamburger classList before:", menuToggleButton.className)
+            menuToggleButton.classList.toggle("active")
+            navigationMenu.classList.toggle("active")
+            console.log("Hamburger classList after:", menuToggleButton.className)
+            console.log("NavMenu classList after:", navigationMenu.className)
+        })
+
+        const navLinks = document.querySelectorAll(".nav-link")
+        for (let i = 0; i < navLinks.length; i++) {
+            const link = navLinks[i]
+            link.addEventListener("click", function () {
+                console.log("Nav link clicked:", this.textContent)
+                menuToggleButton.classList.remove("active")
+                navigationMenu.classList.remove("active")
+            })
+        }
 
         // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.nav-container')) {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
+        document.addEventListener("click", function (e) {
+            if (!e.target.closest(".nav-container")) {
+                menuToggleButton.classList.remove("active")
+                navigationMenu.classList.remove("active")
             }
-        });
-    } else {
-        console.error('Hamburger or nav menu element not found!');
+        })
+    }
+    else {
+        console.error("Hamburger or nav menu element not found!")
     }
 
-    // Debug Console Feature
-    let logoClickCount = 0;
-    let debugEnabled = false;
-    const debugConsoleBox = document.createElement('div');
-    debugConsoleBox.id = 'debug-console';
-    debugConsoleBox.style.display = 'none';
-    
-    // Create close/minimize button
-    const debugCloseBtn = document.createElement('button');
-    debugCloseBtn.id = 'debug-close-btn';
-    debugCloseBtn.textContent = '−';
-    debugCloseBtn.style.position = 'absolute';
-    debugCloseBtn.style.top = '5px';
-    debugCloseBtn.style.right = '5px';
-    debugCloseBtn.style.background = '#00ff00';
-    debugCloseBtn.style.color = '#000';
-    debugCloseBtn.style.border = 'none';
-    debugCloseBtn.style.padding = '2px 8px';
-    debugCloseBtn.style.cursor = 'pointer';
-    debugCloseBtn.style.fontWeight = 'bold';
-    debugCloseBtn.style.zIndex = '10000';
-    debugCloseBtn.style.fontSize = '16px';
-    
-    debugConsoleBox.appendChild(debugCloseBtn);
-    document.body.insertBefore(debugConsoleBox, document.body.firstChild);
-    console.log('Debug console box created');
-    
-    let consoleMinimized = false;
-    debugCloseBtn.addEventListener('click', function() {
-        consoleMinimized = !consoleMinimized;
-        console.log('Debug console minimized:', consoleMinimized);
-        if (consoleMinimized) {
-            debugConsoleBox.classList.add('minimized');
-            debugCloseBtn.textContent = '+';
-        } else {
-            debugConsoleBox.classList.remove('minimized');
-            debugCloseBtn.textContent = '−';
-        }
-    });
-
-    const logoElement = document.querySelector('.nav-logo');
-    if (logoElement) {
-        logoElement.addEventListener('click', function() {
-            logoClickCount++;
-            console.log('Logo clicked:', logoClickCount, 'times');
-            if (logoClickCount === 5) {
-                console.log('Logo clicked 5 times - requesting passcode');
-                const passcode = prompt('Enter passcode:');
-                if (passcode === 'lum1nescent') {
-                    debugEnabled = true;
-                    debugConsoleBox.style.display = 'block';
-                    logToDebugConsole('Debug Console Enabled');
-                    console.log('Debug console enabled with correct passcode');
-                    // Redirect console.log to debug console
-                    const originalLog = console.log;
-                    console.log = function(...args) {
-                        originalLog.apply(console, args);
-                        logToDebugConsole(args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '));
-                    };
-                    // Capture other console methods
-                    console.warn = function(...args) {
-                        logToDebugConsole('[WARN] ' + args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '));
-                    };
-                    console.error = function(...args) {
-                        logToDebugConsole('[ERROR] ' + args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '));
-                    };
-                } else if (passcode !== null) {
-                    console.log('Incorrect passcode entered');
-                    alert('Incorrect passcode');
-                }
-                logoClickCount = 0;
-            }
-        });
+    const sections = document.querySelectorAll("section")
+    for (let i = 0; i < sections.length; i++) {
+        const section = sections[i]
+        console.log("Observing section:", section.id)
+        observer.observe(section)
     }
-
-    function logToDebugConsole(message) {
-        if (debugEnabled) {
-            const timestamp = new Date().toLocaleTimeString();
-            const entry = document.createElement('div');
-            entry.style.color = '#00ff00';
-            entry.style.fontFamily = 'monospace';
-            entry.style.fontSize = '12px';
-            entry.style.padding = '2px 5px';
-            entry.style.borderBottom = '1px solid #333';
-            entry.textContent = `[${timestamp}] ${message}`;
-            debugConsoleBox.appendChild(entry);
-            debugConsoleBox.scrollTop = debugConsoleBox.scrollHeight;
-        }
-    }
-
-    // Make logToDebugConsole global so other scripts can use it
-    window.logToDebugConsole = logToDebugConsole;
-});
+})
 
 const observerOptions = {
     threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            console.log('Section visible:', entry.target.id);
-            entry.target.style.animation = `fadeInUp 0.6s ease forwards`;
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-document.querySelectorAll('section').forEach(section => {
-    console.log('Observing section:', section.id);
-    observer.observe(section);
-});
-
-// CTA button click
-const ctaButton = document.querySelector('.cta-button');
-if (ctaButton) {
-    ctaButton.addEventListener('click', function() {
-        console.log('CTA button clicked - scrolling to info section');
-        const scrollTarget = document.getElementById('info');
-        if (scrollTarget) {
-            scrollTarget.scrollIntoView({ behavior: 'smooth' });
-        }
-    });
+    rootMargin: "0px 0px -50px 0px"
 }
 
-// Scroll effects and navbar glow
-let lastScrollTop = 0;
-const navbar = document.querySelector('.navbar');
+const observer = new IntersectionObserver(function (entries) {
+    for (let i = 0; i < entries.length; i++) {
+        const entry = entries[i]
+        if (entry.isIntersecting) {
+            console.log("Section visible:", entry.target.id)
+            entry.target.classList.add("visible")
+            observer.unobserve(entry.target)
+        }
+    }
+}, observerOptions)
 
-window.addEventListener('scroll', function() {
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+
+// Scroll effects and navbar glow
+const navbar = document.querySelector(".navbar")
+
+window.addEventListener("scroll", function () {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop
 
     if (scrollTop > 100) {
         if (navbar) {
-            navbar.style.boxShadow = '0 0 12px rgba(217, 70, 239, 0.3)';
-        }
-    } else {
-        if (navbar) {
-            navbar.style.boxShadow = '0 0 8px rgba(217, 70, 239, 0.2)';
+            navbar.classList.add("scrolled")
         }
     }
-});
-
-// Glow effect on text elements
-document.querySelectorAll('.glowing-text').forEach(element => {
-    console.log('Adding glow effect to text element');
-    element.addEventListener('mouseenter', function() {
-        console.log('Glowing text hovered');
-        this.style.textShadow = `
-            0 0 8px var(--neon-purple),
-            0 0 15px rgba(168, 85, 247, 0.5)
-        `;
-    });
-
-    element.addEventListener('mouseleave', function() {
-        console.log('Glowing text hover ended');
-        this.style.textShadow = `
-            0 0 5px var(--neon-purple),
-            0 0 10px rgba(168, 85, 247, 0.3)
-        `;
-    });
-});
-
-// Ripple effect function
-function createRipple(event) {
-    const button = event.currentTarget;
-    const ripple = document.createElement('span');
-
-    const rect = button.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height);
-    const x = event.clientX - rect.left - size / 2;
-    const y = event.clientY - rect.top - size / 2;
-
-    console.log('Creating ripple effect on button:', event.currentTarget.textContent);
-    ripple.style.width = ripple.style.height = size + 'px';
-    ripple.style.left = x + 'px';
-    ripple.style.top = y + 'px';
-    ripple.classList.add('ripple');
-
-    button.appendChild(ripple);
-
-    setTimeout(() => ripple.remove(), 600);
-}
+    else {
+        if (navbar) {
+            navbar.classList.remove("scrolled")
+        }
+    }
+})
 
 // Card hover effects
-document.querySelectorAll('.info-card, .server-card, .staff-card').forEach(card => {
-    console.log('Adding hover effect to card');
-    card.addEventListener('mouseenter', function() {
-        console.log('Card hovered - scaling up');
-        this.style.transform = 'translateY(-10px) scale(1.02)';
-    });
+const cards = document.querySelectorAll(".info-card, .server-card, .staff-card")
+for (let i = 0; i < cards.length; i++) {
+    const card = cards[i]
+    console.log("Adding hover effect to card")
+    card.addEventListener("mouseenter", function () {
+        console.log("Card hovered - scaling up")
+        this.classList.add("hovered")
+    })
 
-    card.addEventListener('mouseleave', function() {
-        console.log('Card hover ended - resetting scale');
-        this.style.transform = 'translateY(0) scale(1)';
-    });
-});
+    card.addEventListener("mouseleave", function () {
+        console.log("Card hover ended - resetting scale")
+        this.classList.remove("hovered")
+    })
 
+}
 // Dynamic styles
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
 
-    .ripple {
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.6);
-        transform: scale(0);
-        animation: rippleAnimation 0.6s ease-out;
-        pointer-events: none;
-    }
-        
-    @keyframes rippleAnimation {
-        to {
-            transform: scale(4);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(style);
-console.log('Dynamic styles appended to head');
-
-// Download button handlers
-document.querySelectorAll('.download-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        console.log('Download button clicked for platform:', this.classList[1]);
-        const platform = this.classList[1];
-        alert(`Download for ${platform.charAt(0).toUpperCase() + platform.slice(1)} starting...\n\n(This is a demo - implement actual download links as needed)`);
-    });
-});
 
 // Join server button handlers
-document.querySelectorAll('.join-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        console.log('Join server button clicked for server:', this.textContent);
-        alert('Server join functionality would be implemented here');
-    });
-});
-
+const joinButtons = document.querySelectorAll(".join-btn")
+for (let i = 0; i < joinButtons.length; i++) {
+    const button = joinButtons[i]
+    button.addEventListener("click", function () {
+        console.log("Join server button clicked for server:", this.textContent)
+        alert("Server join functionality would be implemented here")
+    })
+}
 // Countdown timer
-const countdownElement = document.getElementById('countdown');
+const countdownElement = document.getElementById("countdown")
 
 if (countdownElement) {
-    console.log('Countdown element found - starting timer');
+    console.log("Countdown element found - starting timer")
     function updateCountdown() {
-        const targetDate = new Date(2026, 3, 27, 0, 0, 0).getTime();
-        const now = new Date().getTime();
-        const difference = targetDate - now;
+        const targetDate = new Date(2026, 3, 27, 0, 0, 0).getTime()
+        const now = new Date().getTime()
+        const difference = targetDate - now
 
-        const items = countdownElement.querySelectorAll('.countdown-item');
-        
+        const items = countdownElement.querySelectorAll(".countdown-item")
+
         if (difference > 0 && items.length === 5) {
-            const weeks = Math.floor(difference / (1000 * 60 * 60 * 24 * 7));
-            const days = Math.floor((difference % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+            const weeks = Math.floor(difference / (1000 * 60 * 60 * 24 * 7))
+            const days = Math.floor(difference % (1000 * 60 * 60 * 24 * 7) / (1000 * 60 * 60 * 24))
+            const hours = Math.floor(difference % (1000 * 60 * 60 * 24) / (1000 * 60 * 60))
+            const minutes = Math.floor(difference % (1000 * 60 * 60) / (1000 * 60))
+            const seconds = Math.floor(difference % (1000 * 60) / 1000)
 
-            const values = [weeks, days, hours, minutes, seconds];
-            items.forEach((item, index) => {
-                const value = item.querySelector('.countdown-value');
+            const values = [weeks, days, hours, minutes, seconds]
+            for (let i = 0; i < items.length; i++) {
+                const item = items[i]
+                const value = item.querySelector(".countdown-value")
                 if (value) {
-                    value.textContent = values[index];
+                    value.textContent = values[i]
                 }
-            });
-        } else if (items.length === 5) {
-            console.log('Countdown reached - setting to LIVE NOW');
-            const titleElement = document.querySelector('.countdown-title');
-            if (titleElement) {
-                titleElement.textContent = 'Luminescent Launch - Out of beta. LIVE NOW!';
             }
-            items.forEach(item => {
-                const value = item.querySelector('.countdown-value');
+        }
+        else if (items.length === 5) {
+            console.log("Countdown reached - setting to LIVE NOW")
+            const titleElement = document.querySelector(".countdown-title")
+            if (titleElement) {
+                titleElement.textContent = "Luminescent Launch - Out of beta. LIVE NOW!"
+            }
+            for (let i = 0; i < items.length; i++) {
+                const item = items[i]
+                const value = item.querySelector(".countdown-value")
                 if (value) {
-                    value.textContent = '0';
+                    value.textContent = "0"
                 }
-            });
+            }
         }
     }
 
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-} else {
-    console.warn('Countdown element not found');
+    updateCountdown()
+    setInterval(updateCountdown, 1000)
+}
+else {
+    console.warn("Countdown element not found")
 }
 
 // Page load fade in
-window.addEventListener('load', function() {
-    console.log('Page load complete - fading in body');
-    document.body.style.opacity = '1';
-    document.body.style.animation = 'fadeIn 0.5s ease';
-});
+window.addEventListener("load", function () {
+    console.log("Page load complete - fading in body")
+    document.body.classList.add("loaded")
+})
 
-console.log('%c✨ Welcome to Luminescent Network ✨', 'color: #d946ef; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px #a855f7;');
-console.log('%cPowered by neon purple aesthetics and smooth animations', 'color: #a855f7; font-size: 14px;');
+console.log("%c✨ Welcome to Luminescent Network ✨", "color: #d946ef; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px #a855f7;")
+console.log("%cPowered by neon purple aesthetics and smooth animations", "color: #a855f7; font-size: 14px;")

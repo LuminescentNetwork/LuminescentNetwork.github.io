@@ -1,0 +1,50 @@
+[
+    {
+        "name": "Ewoker17",
+        "role": "Founder",
+        "bio": "I'm the Owner and I do Modeling, Coding and make sure Luminescent Network is up to my vision. And remember: Where imagination becomes playable - without limits",
+        "image": "ewoker17.png"
+    },
+    {
+        "name": "Orcafunny",
+        "role": "Co-owner",
+        "bio": "Command Guy, Moderator, Modeler, Artist, Builds, Can Kinda Code.",
+        "image": "orcafunny.png"
+    },
+    {
+        "name": "Ignitemare",
+        "role": "Modder",
+        "bio": "An experienced Minecraft player, builder, and artist who makes discord servers for people (:",
+        "image": "ignitemare.png"
+    },
+    {
+        "name": "Snizzle",
+        "role": "Modder",
+        "bio": "I'm a webdev and 3d modeler for Luminescent Network, and... I like the color blue :)",
+        "image": "snizzle.jpeg"
+    },
+    {
+        "name": "Retroverse",
+        "role": "Manager / CEO",
+        "bio": "\"Not\" a robot, programmer, game designer, artist, and manager of Luminescent Network",
+        "image": "retroverse.png"
+    },
+    {
+        "name": "momar3455",
+        "role": "Lead Modder",
+        "bio": "I don’t copy trends—I destroy them and rebuild better systems. Luminescent Network world engineer.",
+        "image": "momar3455.png"
+    },
+    {
+        "name": "8Crafter",
+        "role": "Modder",
+        "bio": "A very experienced programmer, Minecraft Bedrock Edition YouTuber, and add-on creator.",
+        "image": "8crafter.png"
+    },
+    {
+        "name": "Shroom",
+        "role": "Trainee",
+        "bio": "Hello I am Shroom and I have been building seriously and competitively for about two years now. And I like tacos 🌮",
+        "image": "shroom.webp"
+    }
+]

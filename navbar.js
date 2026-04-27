@@ -1,11 +1,13 @@
 fetch("navbar.html")
     .then(res => res.text())
     .then(data => {
-        document.getElementById("navbar").innerHTML = data;
+        document.getElementById("navbar").innerHTML = data
         const menuToggleButton = document.querySelector(".hamburger")
         const navigationMenu = document.querySelector(".nav-menu")
 
-        if (!menuToggleButton || !navigationMenu) return
+        if (!menuToggleButton || !navigationMenu) {
+            return
+        }
 
         menuToggleButton.addEventListener("click", function (event) {
             event.preventDefault()
@@ -16,7 +18,7 @@ fetch("navbar.html")
 
         const navLinks = document.querySelectorAll(".nav-link")
         for (let i = 0; i < navLinks.length; i++) {
-            const link = navLinks[i];
+            const link = navLinks[i]
             link.addEventListener("click", function () {
                 menuToggleButton.classList.remove("active")
                 navigationMenu.classList.remove("active")

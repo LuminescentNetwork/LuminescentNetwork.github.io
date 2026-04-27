@@ -28,48 +28,6 @@ loadStaff()
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("DOMContentLoaded - Initializing page")
-    const menuToggleButton = document.querySelector(".hamburger")
-    const navigationMenu = document.querySelector(".nav-menu")
-
-    console.log("Setting up hamburger menu")
-    console.log("Hamburger element:", menuToggleButton)
-    console.log("Nav menu element:", navigationMenu)
-    console.log("Hamburger display:", window.getComputedStyle(menuToggleButton).display)
-
-    if (menuToggleButton && navigationMenu) {
-        menuToggleButton.addEventListener("click", function (e) {
-            e.preventDefault()
-            e.stopPropagation()
-            console.log("🍔 Hamburger menu clicked!")
-            console.log("Hamburger classList before:", menuToggleButton.className)
-            menuToggleButton.classList.toggle("active")
-            navigationMenu.classList.toggle("active")
-            console.log("Hamburger classList after:", menuToggleButton.className)
-            console.log("NavMenu classList after:", navigationMenu.className)
-        })
-
-        const navLinks = document.querySelectorAll(".nav-link")
-        for (let i = 0; i < navLinks.length; i++) {
-            const link = navLinks[i]
-            link.addEventListener("click", function () {
-                console.log("Nav link clicked:", this.textContent)
-                menuToggleButton.classList.remove("active")
-                navigationMenu.classList.remove("active")
-            })
-        }
-
-        // Close menu when clicking outside
-        document.addEventListener("click", function (e) {
-            if (!e.target.closest(".nav-container")) {
-                menuToggleButton.classList.remove("active")
-                navigationMenu.classList.remove("active")
-            }
-        })
-    }
-    else {
-        console.error("Hamburger or nav menu element not found!")
-    }
 
     const sections = document.querySelectorAll("section")
     for (let i = 0; i < sections.length; i++) {
@@ -78,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
         observer.observe(section)
     }
 })
+
 
 const observerOptions = {
     threshold: 0.1,
@@ -119,14 +78,11 @@ window.addEventListener("scroll", function () {
 const cards = document.querySelectorAll(".info-card, .server-card, .staff-card")
 for (let i = 0; i < cards.length; i++) {
     const card = cards[i]
-    console.log("Adding hover effect to card")
     card.addEventListener("mouseenter", function () {
-        console.log("Card hovered - scaling up")
         this.classList.add("hovered")
     })
 
     card.addEventListener("mouseleave", function () {
-        console.log("Card hover ended - resetting scale")
         this.classList.remove("hovered")
     })
 

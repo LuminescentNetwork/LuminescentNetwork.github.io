@@ -34,14 +34,23 @@ body::before {
     content: "";
     position: fixed;
     inset: 0;
-    background: radial-gradient(circle at center, rgba(168,85,247,0.12), transparent 60%);
+    background: radial-gradient(circle at center, rgba(168, 85, 247, 0.12), transparent 60%);
     animation: pulse 6s ease-in-out infinite;
     pointer-events: none;
 }
 
 @keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 0.4; }
-    50% { transform: scale(1.1); opacity: 0.7; }
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.4;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.7;
+    }
 }
 
 .glowing-text {
@@ -55,9 +64,12 @@ body::before {
 }
 
 @keyframes glowPulse {
-    0%, 100% {
+
+    0%,
+    100% {
         text-shadow: 0 0 5px var(--neon-purple), 0 0 10px rgba(168, 85, 247, 0.3);
     }
+
     50% {
         text-shadow: 0 0 8px var(--neon-purple), 0 0 15px rgba(168, 85, 247, 0.5);
     }
@@ -73,9 +85,12 @@ body::before {
 }
 
 @keyframes lineGlow {
-    0%, 100% {
+
+    0%,
+    100% {
         box-shadow: 0 0 5px var(--neon-purple);
     }
+
     50% {
         box-shadow: 0 0 10px var(--neon-purple);
     }
@@ -97,6 +112,7 @@ body::before {
     from {
         transform: translateY(-100%);
     }
+
     to {
         transform: translateY(0);
     }
@@ -111,7 +127,10 @@ body::before {
     width: 100%;
 }
 
-#home, #info, #servers, #staff {
+#home,
+#info,
+#servers,
+#staff {
     scroll-margin-top: 80px;
 }
 
@@ -127,10 +146,13 @@ body::before {
 }
 
 @keyframes logoGlow {
-    0%, 100% {
+
+    0%,
+    100% {
         text-shadow: 0 0 5px var(--neon-purple);
         transform: scale(1);
     }
+
     50% {
         text-shadow: 0 0 8px var(--neon-purple);
         transform: scale(1.05);
@@ -150,6 +172,7 @@ body::before {
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
@@ -214,7 +237,7 @@ body::before {
 }
 
 .hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(10px, 10px);
+    transform: translateY(8px) rotate(45deg);
 }
 
 .hamburger.active span:nth-child(2) {
@@ -222,7 +245,7 @@ body::before {
 }
 
 .hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -7px);
+    transform: translateY(-8px) rotate(-45deg);
 }
 
 /* ===== SECTION HEADER ===== */
@@ -258,10 +281,13 @@ body::before {
 }
 
 @keyframes pulseRadial {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
         opacity: 0.5;
     }
+
     50% {
         transform: scale(1.1);
         opacity: 1;
@@ -292,6 +318,7 @@ body::before {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -299,9 +326,12 @@ body::before {
 }
 
 @keyframes buttonFloat {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-10px);
     }
@@ -331,16 +361,28 @@ body::before {
     box-shadow: 0 0 5px rgba(168, 85, 247, 0.1);
 }
 
-.info-card:nth-child(1) { animation-delay: 0.1s; }
-.info-card:nth-child(2) { animation-delay: 0.2s; }
-.info-card:nth-child(3) { animation-delay: 0.3s; }
-.info-card:nth-child(4) { animation-delay: 0.4s; }
+.info-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.info-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.info-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.info-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
 
 @keyframes cardSlideIn {
     from {
         opacity: 0;
         transform: translateX(-30px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -359,15 +401,29 @@ body::before {
     animation: iconFloat 3s ease-in-out infinite;
 }
 
-.info-card:nth-child(1) .card-icon { animation-delay: 0s; }
-.info-card:nth-child(2) .card-icon { animation-delay: 0.5s; }
-.info-card:nth-child(3) .card-icon { animation-delay: 1s; }
-.info-card:nth-child(4) .card-icon { animation-delay: 1.5s; }
+.info-card:nth-child(1) .card-icon {
+    animation-delay: 0s;
+}
+
+.info-card:nth-child(2) .card-icon {
+    animation-delay: 0.5s;
+}
+
+.info-card:nth-child(3) .card-icon {
+    animation-delay: 1s;
+}
+
+.info-card:nth-child(4) .card-icon {
+    animation-delay: 1.5s;
+}
 
 @keyframes iconFloat {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-15px);
     }
@@ -405,10 +461,21 @@ body::before {
     box-shadow: 0 0 5px rgba(168, 85, 247, 0.1);
 }
 
-.server-card:nth-child(1) { animation-delay: 0.1s; }
-.server-card:nth-child(2) { animation-delay: 0.2s; }
-.server-card:nth-child(3) { animation-delay: 0.3s; }
-.server-card:nth-child(4) { animation-delay: 0.4s; }
+.server-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.server-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.server-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.server-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
 
 .server-card:hover {
     border-color: var(--neon-purple);
@@ -478,10 +545,21 @@ body::before {
     box-shadow: 0 0 5px rgba(168, 85, 247, 0.1);
 }
 
-.staff-card:nth-child(1) { animation-delay: 0.1s; }
-.staff-card:nth-child(2) { animation-delay: 0.2s; }
-.staff-card:nth-child(3) { animation-delay: 0.3s; }
-.staff-card:nth-child(4) { animation-delay: 0.4s; }
+.staff-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.staff-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.staff-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.staff-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
 
 .staff-card:hover {
     border-color: var(--neon-purple);
@@ -499,15 +577,29 @@ body::before {
     box-shadow: 0 0 15px rgba(155, 77, 226, 0.3);
 }
 
-.staff-card:nth-child(1) .staff-avatar { animation-delay: 0s; }
-.staff-card:nth-child(2) .staff-avatar { animation-delay: 0.3s; }
-.staff-card:nth-child(3) .staff-avatar { animation-delay: 0.6s; }
-.staff-card:nth-child(4) .staff-avatar { animation-delay: 0.9s; }
+.staff-card:nth-child(1) .staff-avatar {
+    animation-delay: 0s;
+}
+
+.staff-card:nth-child(2) .staff-avatar {
+    animation-delay: 0.3s;
+}
+
+.staff-card:nth-child(3) .staff-avatar {
+    animation-delay: 0.6s;
+}
+
+.staff-card:nth-child(4) .staff-avatar {
+    animation-delay: 0.9s;
+}
 
 @keyframes avatarBounce {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-20px);
     }
@@ -640,6 +732,7 @@ body::before {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -680,21 +773,29 @@ body::before {
 @media (max-width: 768px) {
     .nav-menu {
         position: fixed;
-        top: -100%;
-        left: 0;
+        top: 0;
         right: 0;
+
+        height: 100vh;
+        width: 150px;
+
+        display: flex;
         flex-direction: column;
-        background: rgba(15, 1, 23, 0.99);
-        width: 100%;
-        text-align: center;
-        transition: top 0.3s ease;
-        padding: 2rem 0;
-        gap: 1rem;
-        border-bottom: 2px solid var(--neon-purple);
+        align-items: flex-start;
+        padding: 80px 20px; /* space for navbar */
+
+        background: rgba(15, 1, 23, 0.98);
+        backdrop-filter: blur(10px);
+
+        transform: translateX(100%); /* slide from right */
+        transition: transform 0.3s ease;
+
+        box-shadow: -5px 0 15px rgba(217, 70, 239, 0.2);
+        gap: 1.5rem;
     }
 
     .nav-menu.active {
-        top: 70px;
+        transform: translateX(0); /* visible */
     }
 
     .hamburger {
@@ -764,31 +865,31 @@ body::before {
 
 .carousel {
     display: flex;
-    width: 400%;
-    animation: scroll 20s infinite linear;
+    width: max-content;
+    height: 720px;
+    /* controls overall size */
+    animation: scroll 20s linear infinite;
 }
 
 .carousel img {
-    width: 25%;
-    height: auto;
+    height: 100%;
+    width: auto;
+    flex-shrink: 0;
     object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.carousel img:hover {
-    transform: scale(1.05);
+    border-radius: 8px;
+    /* optional nicer look */
+    margin-right: 10px;
+    /* spacing between images */
 }
 
 @keyframes scroll {
-    0% { transform: translateX(0); }
-    23% { transform: translateX(0); }
-    25% { transform: translateX(-25%); }
-    48% { transform: translateX(-25%); }
-    50% { transform: translateX(-50%); }
-    73% { transform: translateX(-50%); }
-    75% { transform: translateX(-75%); }
-    98% { transform: translateX(-75%); }
-    100% { transform: translateX(0); }
+    0% {
+        transform: translateX(25%);
+    }
+
+    100% {
+        transform: translateX(-25%);
+    }
 }
 
 .countdown-section {
@@ -851,6 +952,7 @@ body::before {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -903,4 +1005,15 @@ section.visible {
 
 .server-card.hovered {
     transform: translateY(-15px);
+}
+
+
+.footer-link {
+    color: var(--light-purple);
+    margin-left: 10px;
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
 }

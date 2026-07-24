@@ -150,11 +150,7 @@ else {
     console.warn("Countdown element not found")
 }
 
-// Page load fade in
-window.addEventListener("load", function () {
-    console.log("Page load complete - fading in body")
-    document.body.classList.add("loaded")
-})
+ document.body.classList.add("loaded")
 
 console.log("%c✨ Welcome to Luminescent Network ✨", "color: #d946ef; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px #a855f7;")
 console.log("%cPowered by neon purple aesthetics and smooth animations", "color: #a855f7; font-size: 14px;")

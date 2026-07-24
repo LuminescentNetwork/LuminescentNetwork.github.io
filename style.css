@@ -33,7 +33,7 @@ body::before {
     content: "";
     position: fixed;
     inset: 0;
-    background: radial-gradient(circle at center, rgb(168, 85, 247, 12%), transparent 60%);
+    background: radial-gradient(circle at center, rgba(168, 85, 247, 0.12), transparent 60%);
     animation: pulse 6s ease-in-out infinite;
     pointer-events: none;
 }
@@ -56,7 +56,7 @@ body::before {
     font-weight: 800;
     text-align: center;
     color: var(--neon-purple);
-    text-shadow: 0 0 5px var(--neon-purple), 0 0 10px rgb(168, 85, 247, 30%);
+    text-shadow: 0 0 5px var(--neon-purple), 0 0 10px rgba(168, 85, 247, 0.3);
     letter-spacing: 2px;
     animation: glow-pulse 3s ease-in-out infinite;
 
@@ -69,11 +69,11 @@ body::before {
 @keyframes glow-pulse {
     0%,
     100% {
-        text-shadow: 0 0 5px var(--neon-purple), 0 0 10px rgb(168, 85, 247, 30%);
+        text-shadow: 0 0 5px var(--neon-purple), 0 0 10px rgba(168, 85, 247, 0.3);
     }
 
     50% {
-        text-shadow: 0 0 8px var(--neon-purple), 0 0 15px rgb(168, 85, 247, 50%);
+        text-shadow: 0 0 8px var(--neon-purple), 0 0 15px rgba(168, 85, 247, 0.5);
     }
 }
 
@@ -101,10 +101,10 @@ body::before {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgb(15, 1, 23, 95%);
+    background: rgba(15, 1, 23, 0.95);
     backdrop-filter: blur(10px);
     border-bottom: 2px solid var(--neon-purple);
-    box-shadow: 0 0 8px rgb(217, 70, 239, 20%);
+    box-shadow: 0 0 8px rgba(217, 70, 239, 0.2);
     z-index: 1000;
     animation: navbar-slide 0.5s ease;
 }
@@ -262,7 +262,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at center, rgb(168, 85, 247, 10%) 0%, transparent 70%);
+    background: radial-gradient(circle at center, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
     animation: pulse-radial 4s ease-in-out infinite;
     pointer-events: none;
 }
@@ -297,7 +297,7 @@ body::before {
     font-size: 1.5rem;
     color: var(--text-secondary);
     margin-bottom: 2rem;
-    text-shadow: 0 0 10px rgb(168, 85, 247, 30%);
+    text-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
     animation: fade-in-up 1s ease 0.2s both;
 }
 
@@ -315,7 +315,7 @@ body::before {
 
 /* ===== INFO SECTION ===== */
 .info-section {
-    background: linear-gradient(180deg, rgb(168, 85, 247, 5%) 0%, transparent 100%);
+    background: linear-gradient(180deg, rgba(168, 85, 247, 0.05) 0%, transparent 100%);
 }
 
 .info-grid {
@@ -328,13 +328,13 @@ body::before {
 
 .info-card {
     padding: 2rem;
-    background: rgb(124, 58, 237, 10%);
+    background: rgba(124, 58, 237, 0.1);
     border: 2px solid var(--primary-purple);
     border-radius: 15px;
     text-align: center;
     transition: var(--transition);
     animation: card-slide-in 0.6s ease backwards;
-    box-shadow: 0 0 5px rgb(168, 85, 247, 10%);
+    box-shadow: 0 0 5px rgba(168, 85, 247, 0.1);
 }
 
 .info-card:nth-child(1) {
@@ -367,7 +367,7 @@ body::before {
 
 .info-card:hover {
     border-color: var(--neon-purple);
-    box-shadow: 0 0 10px var(--neon-purple), 0 0 15px rgb(217, 70, 239, 20%);
+    box-shadow: 0 0 10px var(--neon-purple), 0 0 15px rgba(217, 70, 239, 0.2);
     transform: translateY(-10px);
 }
 
@@ -427,13 +427,13 @@ body::before {
 
 .server-card {
     padding: 2rem;
-    background: linear-gradient(135deg, rgb(124, 58, 237, 15%) 0%, rgb(217, 70, 239, 10%) 100%);
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(217, 70, 239, 0.1) 100%);
     border: 2px solid var(--primary-purple);
     border-radius: 15px;
     text-align: center;
     transition: var(--transition);
     animation: card-slide-in 0.6s ease backwards;
-    box-shadow: 0 0 5px rgb(168, 85, 247, 10%);
+    box-shadow: 0 0 5px rgba(168, 85, 247, 0.1);
 }
 
 .server-card:nth-child(1) {
@@ -454,7 +454,7 @@ body::before {
 
 .server-card:hover {
     border-color: var(--neon-purple);
-    box-shadow: 0 0 12px var(--neon-purple), 0 0 20px rgb(217, 70, 239, 20%);
+    box-shadow: 0 0 12px var(--neon-purple), 0 0 20px rgba(217, 70, 239, 0.2);
     transform: translateY(-15px);
 }
 
@@ -491,12 +491,12 @@ body::before {
 }
 
 .join-btn:hover {
-    box-shadow: 0 0 10px var(--neon-purple), 0 0 15px rgb(217, 70, 239, 20%);
+    box-shadow: 0 0 10px var(--neon-purple), 0 0 15px rgba(217, 70, 239, 0.2);
     transform: scale(1.05);
 }
 
 .staff-section {
-    background: linear-gradient(180deg, transparent 0%, rgb(168, 85, 247, 5%) 100%);
+    background: linear-gradient(180deg, transparent 0%, rgba(168, 85, 247, 0.05) 100%);
     margin-bottom: 20px;
 }
 
@@ -510,13 +510,13 @@ body::before {
 
 .staff-card {
     padding: 2rem;
-    background: rgb(124, 58, 237, 10%);
+    background: rgba(124, 58, 237, 0.1);
     border: 2px solid var(--primary-purple);
     border-radius: 15px;
     text-align: center;
     transition: var(--transition);
     animation: card-slide-in 0.6s ease backwards;
-    box-shadow: 0 0 5px rgb(168, 85, 247, 10%);
+    box-shadow: 0 0 5px rgba(168, 85, 247, 0.1);
 }
 
 .staff-card:nth-child(1) {
@@ -537,7 +537,7 @@ body::before {
 
 .staff-card:hover {
     border-color: var(--neon-purple);
-    box-shadow: 0 0 10px var(--neon-purple), 0 0 15px rgb(217, 70, 239, 20%);
+    box-shadow: 0 0 10px var(--neon-purple), 0 0 15px rgba(217, 70, 239, 0.2);
     transform: translateY(-10px);
 }
 
@@ -546,9 +546,9 @@ body::before {
     height: 100px;
     border-radius: 50%;
     margin-bottom: 10px;
-    border: 3px solid rgb(155, 77, 226, 50%);
+    border: 3px solid rgba(155, 77, 226, 0.5);
     transition: all 0.4s ease;
-    box-shadow: 0 0 15px rgb(155, 77, 226, 30%);
+    box-shadow: 0 0 15px rgba(155, 77, 226, 0.3);
 }
 
 .staff-card h3 {
@@ -571,12 +571,12 @@ body::before {
 
 /* ===== FOOTER ===== */
 .footer {
-    background: rgb(15, 1, 23, 80%);
+    background: rgba(15, 1, 23, 0.8);
     border-top: 2px solid var(--neon-purple);
     padding: 2rem;
     text-align: center;
     color: var(--text-secondary);
-    box-shadow: 0 -5px 8px rgb(217, 70, 239, 10%);
+    box-shadow: 0 -5px 8px rgba(217, 70, 239, 0.1);
 }
 
 .footer-content p {
@@ -611,11 +611,11 @@ body::before {
         flex-direction: column;
         align-items: flex-start;
         padding: 80px 20px; /* space for navbar */
-        background: rgb(15, 1, 23, 98%);
+        background: rgba(15, 1, 23, 0.98);
         backdrop-filter: blur(10px);
         transform: translateX(100%); /* slide from right */
         transition: transform 0.3s ease;
-        box-shadow: -5px 0 15px rgb(217, 70, 239, 20%);
+        box-shadow: -5px 0 15px rgba(217, 70, 239, 0.2);
         gap: 1.5rem;
     }
 
@@ -654,6 +654,10 @@ body::before {
     .subtitle {
         font-size: 1.1rem;
     }
+
+    .carousel {
+        height: 360px;
+    }
 }
 
 @media (width <= 480px) {
@@ -678,6 +682,10 @@ body::before {
     .staff-card {
         padding: 1.5rem;
     }
+
+    .carousel {
+        height: 220px;
+    }
 }
 
 .carousel-container {
@@ -685,7 +693,7 @@ body::before {
     overflow: hidden;
     margin-top: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 15px rgb(217, 70, 239, 30%);
+    box-shadow: 0 0 15px rgba(217, 70, 239, 0.3);
 }
 
 .carousel {
@@ -730,7 +738,7 @@ body::before {
     color: var(--neon-purple);
     font-weight: 600;
     margin-bottom: 15px;
-    text-shadow: 0 0 10px rgb(217, 70, 239, 50%);
+    text-shadow: 0 0 10px rgba(217, 70, 239, 0.5);
 }
 
 .countdown {
@@ -744,18 +752,18 @@ body::before {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgb(168, 85, 247, 10%);
+    background: rgba(168, 85, 247, 0.1);
     border: 2px solid var(--neon-purple);
     border-radius: 10px;
     padding: 15px 20px;
     min-width: 80px;
-    box-shadow: 0 0 10px rgb(217, 70, 239, 20%);
+    box-shadow: 0 0 10px rgba(217, 70, 239, 0.2);
     transition: all 0.3s ease;
 }
 
 .countdown-item:hover {
-    background: rgb(168, 85, 247, 20%);
-    box-shadow: 0 0 20px rgb(217, 70, 239, 40%);
+    background: rgba(168, 85, 247, 0.2);
+    box-shadow: 0 0 20px rgba(217, 70, 239, 0.4);
     transform: translateY(-5px);
 }
 
@@ -794,17 +802,22 @@ body::before {
 
 
 
+main section:not(#home) {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
 .visible {
     animation: fade-in-up 0.6s ease forwards;
 }
 
 .navbar.scrolled {
-    box-shadow: 0 0 12px rgb(217, 70, 239, 30%);
+    box-shadow: 0 0 12px rgba(217, 70, 239, 0.3);
 }
 
 /* ===== HOVER STATES ===== */
 .glowing-text:hover {
-    text-shadow: 0 0 8px var(--neon-purple), 0 0 15px rgb(168, 85, 247, 50%);
+    text-shadow: 0 0 8px var(--neon-purple), 0 0 15px rgba(168, 85, 247, 0.5);
 }
 
 .info-card.hovered,
